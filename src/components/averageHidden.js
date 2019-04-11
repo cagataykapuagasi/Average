@@ -10,11 +10,18 @@ export default class Average extends Component {
 
     forwardIndex = () => {
         const { mainStore } = this.props.rootStore;
-        mainStore.deleteAverage(this.props.data.index)
+        const { props } = this;
+        //console.log('averages',props.averages);
+        if (!props.averages) {
+            mainStore.deleteAverageList(props.data.index);
+        } else {
+            mainStore.deleteAverages(props.data.index);
+        }
     }
  
     render() {
         const { text, color } = this.props;
+        //console.log('props hidden',this.props);
         return (
             <View style={styles.main} >
                 <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#6c0608', '#920b0d', '#ac0b0e']} style={styles.view}>

@@ -3,20 +3,22 @@ import { View, StatusBar, Platform, StyleSheet, TouchableOpacity, Text, FlatList
 import { observer, inject } from 'mobx-react';
 import {
     AverageHidden,
-    Average,
+    AverageList,
     Button,
 } from '../components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { Actions } from 'react-native-router-flux';
 
 @inject('rootStore')
 @observer
 export default class MainScreen extends Component {
 
-  
+
 
     render() {
         const { mainStore } = this.props.rootStore;
+        console.log('main',mainStore.averageList)
 
         return (
             <View style={styles.main}>
@@ -25,12 +27,12 @@ export default class MainScreen extends Component {
 
                 <View style={styles.header}>
                     <View style={{flex: 1}}>
-                        <Text style={styles.mainText}>Ortalama</Text>
+                        <Text style={styles.mainText}>Listem</Text>
                     </View>
 
                     <View style={styles.rightHeader}>
                         {!mainStore.averageList.length > 0 && <Text style={styles.text}>Ders ekle -></Text>}
-                        <TouchableOpacity onPress={mainStore.addAverage}>
+                        <TouchableOpacity onPress={Actions.average}>
                             <Icon name="add" size={35} color="white" />
                         </TouchableOpacity>
                     </View>
@@ -43,7 +45,7 @@ export default class MainScreen extends Component {
                         keyExtractor={(item, index) => 'key' + index}
                         data={mainStore.averageList}
                         renderItem={ (data) => (
-                            <Average/>
+                            <AverageList data={data} />
                         )}
                         renderHiddenItem={ (data ) => (
                             <AverageHidden data={data}/>
@@ -84,9 +86,9 @@ const styles = StyleSheet.create({
     mainText: {
         right:0,
         fontSize: 16,
-        left:20,
-        fontStyle:'italic',
-        color: 'white'
+        left: 20,
+        color: 'white',
+        fontWeight: 'bold',
     },
     text: {
         color: '#d4d4d4',

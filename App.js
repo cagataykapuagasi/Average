@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Scene, Router, Stack, Tabs } from 'react-native-router-flux';
 import { Provider, observer } from 'mobx-react';
 import rootStore from './src/store/rootStore';
 import { 
   MainScreen,
   BellCurveScreen,
-  SettingsScreen
+  SettingsScreen,
+  AverageScreen,
 } from './src/screens';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -26,8 +27,9 @@ export default class App extends Component {
         <Router wrapBy={observer}>
 
           <Tabs tabBarStyle={styles.tab} showLabel={false} >
-            <Stack iconName="tasks" icon={TabIcon} hideNavBar key="main">
-              <Scene component={MainScreen} />
+            <Stack iconName="tasks" icon={TabIcon} hideNavBar key="mainroot">
+              <Scene initial component={MainScreen} key="main" />
+              <Scene onExit={ i => rootStore.mainStore.restoreCurrentAverageItem()} key="average" component={AverageScreen} />
             </Stack>
 
             <Stack iconName="bell" icon={TabIcon}  hideNavBar key="can">
