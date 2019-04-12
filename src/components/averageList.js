@@ -15,7 +15,7 @@ export default class AverageList extends Component {
         const { data } = this.props;
         //console.log('dwqhdjqwkdqw',data);
 
-        mainStore.fillCurrentData(data.item,data.index);
+        mainStore.fillCurrentData(data.index);
         //mainStore.selectedAverageList = data.index;
         Actions.average();
     }

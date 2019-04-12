@@ -18,7 +18,6 @@ export default class MainScreen extends Component {
 
     render() {
         const { mainStore } = this.props.rootStore;
-        console.log('main',mainStore.averageList)
 
         return (
             <View style={styles.main}>

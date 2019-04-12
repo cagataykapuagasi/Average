@@ -20,10 +20,6 @@ export default class AverageScreen extends Component {
         this.refs.input.focus();
     }
 
-    state = {
-        lessonNumber: 0,
-    }
-
     changeLessonNumber = (value) => {
         const { mainStore } = this.props.rootStore;
 
@@ -32,7 +28,6 @@ export default class AverageScreen extends Component {
 
     render() {
         const { mainStore } = this.props.rootStore;
-        const { lessonNumber } = this.state;
         const data = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }, { value: 6 }, { value: 7 }, { value: 8 }, { value: 9 }, { value: 10 }];
         return (
             <View style={styles.main}>
@@ -49,7 +44,7 @@ export default class AverageScreen extends Component {
 
                     <View style={styles.rightHeader}>
                         <View style={{ left: 20 }}>
-                            <TextInput value={mainStore.currentAverageItem.listName} onChangeText={(value) => mainStore.currentAverageItem.listName = value} ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={{ height: 35, width: 150, color: 'white' }} />
+                            <TextInput value={mainStore.currentAverageItem.listNames} onChangeText={(value) => mainStore.currentAverageItem.listNames = value} ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={{ height: 35, width: 150, color: 'white' }} />
                             <View style={{ height: 0.4, backgroundColor: 'white' }} />
                         </View>
                         {/* {lessonNumber > 0 && <Text style={styles.text}>        Ders sayısı  ->  </Text>} */}
