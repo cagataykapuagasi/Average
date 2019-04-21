@@ -35,7 +35,7 @@ export default class AverageScreen extends Component {
 
 
                 <View style={styles.header}>
-                    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row', backgroundColor: '', left: 10 }}>
+                    <View style={styles.header_1}>
                         <TouchableOpacity onPress={mainStore.changeDataControl}>
                             <Icon name="keyboard-arrow-left" size={35} color="white" />
                         </TouchableOpacity>
@@ -44,10 +44,10 @@ export default class AverageScreen extends Component {
 
                     <View style={styles.rightHeader}>
                         <View style={{ left: 20 }}>
-                            <TextInput value={mainStore.currentAverageItem.listNames} onChangeText={(value) => mainStore.currentAverageItem.listNames = value} ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={{ height: 35, width: 150, color: 'white' }} />
-                            <View style={{ height: 0.4, backgroundColor: 'white' }} />
+                            <TextInput value={mainStore.currentAverageItem.listNames} onChangeText={(value) => mainStore.currentAverageItem.listNames = value}
+                                ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={styles.rightHeader_1} />
+                            <View style={styles.rightHeader_2} />
                         </View>
-                        {/* {lessonNumber > 0 && <Text style={styles.text}>        Ders sayısı  ->  </Text>} */}
                         <Dropdown
                             label="Ders sayısı"
                             data={data}
@@ -56,7 +56,7 @@ export default class AverageScreen extends Component {
                             itemColor="#c3c3c3"
                             pickerStyle={{ backgroundColor: '#2d2d2d' }}
                             baseColor='white'
-                            containerStyle={{ height: 40, width: 120, justifyContent: 'center', left: 80, bottom: 7 }}
+                            containerStyle={styles.dropdown}
                             onChangeText={(value) => {
                                 this.changeLessonNumber(value);
                             }}
@@ -82,7 +82,7 @@ export default class AverageScreen extends Component {
                         previewRowKey="key0"
                     />
 
-                    <View style={{ height: 50, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                    <View style={styles.buttons}>
                         <TouchableOpacity onPress={mainStore.changeDataControl} >
                             <Icon name="close" size={35} color="red" />
                         </TouchableOpacity>
@@ -127,11 +127,34 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    text: {
-        color: '#d4d4d4',
-        left: 160,
-        fontSize: 14,
-        position: 'absolute'
+    header_1: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        left: 10
     },
+    rightHeader_1: {
+        height: 35,
+        width: 150,
+        color: 'white'
+    },
+    rightHeader_2: {
+        height: 0.4,
+        backgroundColor: 'white'
+    },
+    dropdown: {
+        height: 40,
+        width: 120,
+        justifyContent: 'center',
+        left: 80,
+        bottom: 7
+    },
+    buttons: {
+        height: 50,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    }
 
 })
