@@ -77,15 +77,16 @@ export default class mainStore {
     calculateAverage = () => {
         let average = 0;
         let totalCredit = 0;
-        console.log('averages',this.averages);
+        //console.log('averages',this.averages);
         this.averages.map( item => {
             let gradeNumber = this.returnGradeNumber(item.letterGrade);
-            console.log('credit',item.credit,'gradenumber',gradeNumber);
+            //console.log('credit',item.credit,'gradenumber',gradeNumber);
             average += parseInt(item.credit) * gradeNumber;
             totalCredit += parseInt(item.credit);
         })
-        console.log('average',average,'totalcredit',totalCredit);
+        //console.log('average',average,'totalcredit',totalCredit);
         average = average / totalCredit;
+        
         return average;
     }
 

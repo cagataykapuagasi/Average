@@ -13,37 +13,35 @@ export default class AverageList extends Component {
     goToAverageScreen = () => {
         const { mainStore } = this.props.rootStore;
         const { data } = this.props;
-        //console.log('dwqhdjqwkdqw',data);
 
         mainStore.fillCurrentData(data.index);
-        //mainStore.selectedAverageList = data.index;
         Actions.average();
     }
 
 
     render() {
         const { data } = this.props;
-        console
+        const average = data.item.average ? parseFloat(Math.round(data.item.average * 100) / 100).toFixed(2) : '0.00';
         return (
             <TouchableOpacity onPress={this.goToAverageScreen} style={styles.main} >
-                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                     colors={['#1d1d1d', 'gray', '#1d1d1d']} style={styles.view}>
-                    <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
-                        <View style={{flex:1,alignItems:'flex-start',left:10}}>
+                    <View style={styles.firstView}>
+                        <View style={styles.firstView_1}>
                             <Text style={styles.text}>{data.item.listName}</Text>
                         </View>
 
-                        <View style={{flex:1,alignItems:'flex-end'}}>
+                        <View style={styles.firstView_2}>
                             <Icon name="keyboard-arrow-left" size={25} color="red" />
                         </View>
                     </View>
 
-                    <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
-                        <View style={{flex:1,alignItems:'flex-start',left:10}}>
-                            <Text style={[styles.text,{fontWeight:'normal'}]}>{data.item.average}</Text>
+                    <View style={styles.secondView}>
+                        <View style={styles.secondView_1}>
+                            <Text style={[styles.text, { fontWeight: 'normal' }]}>{average}</Text>
                         </View>
 
-                        <View style={{flex:1,alignItems:'flex-end',right:5}}>
+                        <View style={styles.secondView_2}>
                             <Text style={styles.dateText}>{data.item.listTime}</Text>
                         </View>
                     </View>
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 0.3,
         borderColor: 'gray',
-        marginRight:2,
+        marginRight: 2,
     },
     text: {
         color: 'white',
@@ -78,5 +76,34 @@ const styles = StyleSheet.create({
     dateText: {
         color: '#c3c3c3',
     },
+    firstView: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    firstView_1: {
+        flex: 1,
+        alignItems: 'flex-start',
+        left: 10
+    },
+    firstView_2: {
+        flex: 1,
+        alignItems: 'flex-end'
+    },
+    secondView: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    secondView_1: {
+        flex: 1,
+        alignItems: 'flex-start',
+        left: 10
+    },
+    secondView_2: {
+        flex: 1,
+        alignItems: 'flex-end',
+        right: 5
+    }
 
 })
