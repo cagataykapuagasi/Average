@@ -36,15 +36,15 @@ export default class Average extends Component {
 
 const styles = StyleSheet.create({
     main: {
-        height: 50,
+        height: 60,
         width: '100%',
         alignItems: 'flex-end',
-        marginTop: 7.5,
-        marginBottom: 7.5,
+        marginTop: 12,
+        marginBottom: 12,
     },
     view: {
-        height: 50,
-        width: '14%',
+        height: 60,
+        width: '16%',
         backgroundColor: '#560405',
         borderRadius: 5,
         justifyContent: 'center',
