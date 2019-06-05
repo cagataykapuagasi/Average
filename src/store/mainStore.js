@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 
-let temp = [];
+let isNew = true;
 
 export default class mainStore {
 
@@ -11,11 +11,11 @@ export default class mainStore {
     @observable averages = [];
 
     @observable currentAverageItem = {
-        listNames: undefined,
-        listTimes: undefined,
-        averages: undefined,
-        averagess: [],
-        indexs: undefined,
+        listName: undefined,
+        listTime: undefined,
+        average: undefined,
+        averages: [],
+        index: undefined,
     }
 
     constructor(rootStore) {
@@ -24,11 +24,11 @@ export default class mainStore {
 
     @action restoreCurrentAverageItem = () => {
         this.currentAverageItem = {
-            listNames: undefined,
-            listTimes: undefined,
-            averages: undefined,
-            averagess: [],
-            indexs: undefined,
+            listName: undefined,
+            listTime: undefined,
+            average: undefined,
+            averages: [],
+            index: undefined,
         }
         this.averages = [];
     }
@@ -48,17 +48,18 @@ export default class mainStore {
 
     @action addAverageList = () => {
         const averageListItem = {
-            listName: this.currentAverageItem.listNames,
+            listName: this.currentAverageItem.listName,
             listTime: this.getTime(),
             average: this.calculateAverage(),
             averages: this.averages,
         }
 
-        if (this.currentAverageItem.indexs === undefined) {
+        if (isNew) {
             this.averageList.push(averageListItem);
         } else {
-            this.averageList[this.currentAverageItem.indexs] = averageListItem;
+            this.averageList[this.currentAverageItem.index] = averageListItem;
         }
+        isNew = true;
         Actions.main();
     }
 
@@ -67,8 +68,7 @@ export default class mainStore {
     }
 
     @action deleteAverages = (index) => {
-        let temp2 = this.averages.splice(index, 1);
-        temp.push(temp2);
+        this.averages.splice(index, 1);
         this.averages = this.averages.map(i => {
             return i;
         });
@@ -77,14 +77,11 @@ export default class mainStore {
     calculateAverage = () => {
         let average = 0;
         let totalCredit = 0;
-        //console.log('averages',this.averages);
         this.averages.map( item => {
             let gradeNumber = this.returnGradeNumber(item.letterGrade);
-            //console.log('credit',item.credit,'gradenumber',gradeNumber);
             average += parseInt(item.credit) * gradeNumber;
             totalCredit += parseInt(item.credit);
         })
-        //console.log('average',average,'totalcredit',totalCredit);
         average = average / totalCredit;
         
         return average;
@@ -112,12 +109,14 @@ export default class mainStore {
     }
 
     fillCurrentData = (index) => {
-        this.currentAverageItem.listTimes = this.averageList[index].listTime;
-        this.currentAverageItem.averagess = this.averageList[index].averages;
-        this.currentAverageItem.averages = this.averageList[index].average;
-        this.currentAverageItem.listNames = this.averageList[index].listName;
-        this.currentAverageItem.indexs = index;
+        //this.currentAverageItem.listTime = this.averageList[index].listTime;
+        //this.currentAverageItem.averages = this.averageList[index].averages;
+        //this.currentAverageItem.average = this.averageList[index].average;
+        //this.currentAverageItem.listName = this.averageList[index].listName;
+        //this.currentAverageItem.index = index;
+        this.currentAverageItem = this.averageList[index];
         this.averages = this.averageList[index].averages;
+        isNew = false;
     }
 
     getTime = () => {
@@ -131,62 +130,7 @@ export default class mainStore {
         return hours + ':' + minutes + ' ' + day + '/' + month + '/' + year;
     }
 
-    @action changeDataControl = () => {
-        if (this.currentAverageItem.indexs !== undefined) {
-            const { listNames, listTimes, averages } = this.currentAverageItem;
-            const currentAverageItem = {
-                listName: listNames,
-                listTime: listTimes,
-                average: averages,
-                averages: this.averages,
-            }
-            if (JSON.stringify(this.averageList[this.currentAverageItem.indexs]) === JSON.stringify(currentAverageItem)) {
-                Actions.main();
-            } else {
-                this.showAlert(true);
-            }
-
-        } else {
-            this.showAlert();
-        }
-    }
-
-    showAlert = (push) => {
-        if (push) {
-            Alert.alert(
-                'Data will not save',
-                'Are you sure?',
-                [
-                    { 
-                        text: 'Yes', onPress: () => {
-                        this.averageList[this.currentAverageItem.indexs].averages.push(temp);
-                        Actions.main()
-                    } },
-                    {
-                        text: 'No',
-                        onPress: () => '',
-                        style: 'cancel',
-                    },
-                ],
-            );
-        } else {
-            Alert.alert(
-                'Data will not save',
-                'Are you sure?',
-                [
-                    { 
-                        text: 'Yes', onPress: () => {
-                        Actions.main()
-                    } },
-                    {
-                        text: 'No',
-                        onPress: () => '',
-                        style: 'cancel',
-                    },
-                ],
-            );
-        }
-    }
+    
 
 
 
