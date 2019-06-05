@@ -36,7 +36,7 @@ export default class AverageScreen extends Component {
 
                 <View style={styles.header}>
                     <View style={styles.header_1}>
-                        <TouchableOpacity onPress={mainStore.changeDataControl}>
+                        <TouchableOpacity onPress={Actions.pop}>
                             <Icon name="keyboard-arrow-left" size={35} color="white" />
                         </TouchableOpacity>
                         <Text style={styles.mainText}>Ortalama Hesapla</Text>
@@ -44,7 +44,7 @@ export default class AverageScreen extends Component {
 
                     <View style={styles.rightHeader}>
                         <View style={{ left: 20 }}>
-                            <TextInput value={mainStore.currentAverageItem.listNames} onChangeText={(value) => mainStore.currentAverageItem.listNames = value}
+                            <TextInput value={mainStore.currentAverageItem.listName} onChangeText={(value) => mainStore.currentAverageItem.listName = value}
                                 ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={styles.rightHeader_1} />
                             <View style={styles.rightHeader_2} />
                         </View>
@@ -75,10 +75,10 @@ export default class AverageScreen extends Component {
                         renderHiddenItem={(data) => (
                             <AverageHidden averages={true} data={data} />
                         )}
-                        rightOpenValue={-48}
+                        rightOpenValue={-55}
                         disableRightSwipe
                         previewDuration={500}
-                        previewOpenValue={-48}
+                        previewOpenValue={-55}
                         previewRowKey="key0"
                     />
 
