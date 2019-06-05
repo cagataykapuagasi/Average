@@ -33,7 +33,8 @@ export default class Average extends Component {
                     colors={['#1d1d1d', '#2d2d2d', '#3d3d3d']} style={styles.view}>
                     <View style={styles.firstBlock}>
                         <View style={styles.firstBlock_1}>
-                            <TextInput value={data.item.lessonName} onChangeText={(value) => this.onChangeText(value,'name')} placeholder="Ders Adı..." placeholderTextColor="white" style={styles.text}/>
+                            <TextInput value={data.item.lessonName} onChangeText={(value) => this.onChangeText(value,'name')}
+                                placeholder="Ders Adı..." placeholderTextColor="white" style={styles.text}/>
                         </View>
 
                         <View style={styles.firstBlock_2}>
@@ -44,7 +45,7 @@ export default class Average extends Component {
                     <View style={styles.secondBlock}>
                         <View style={styles.secondBlock_1}>
                             <TextInput value={data.item.credit} onChangeText={(value) => this.onChangeText(value,'kredi')}
-                            keyboardType="decimal-pad" placeholder="Ders Kredisi..." placeholderTextColor="white" style={styles.text}/>
+                                keyboardType="decimal-pad" placeholder="Ders Kredisi..." placeholderTextColor="white" style={styles.text}/>
                         </View>
 
                         <View style={styles.secondBlock_2}>
@@ -74,11 +75,11 @@ const styles = StyleSheet.create({
         height: 50,
         width: '100%',
         alignItems: 'center',
-        marginTop: 7.5,
-        marginBottom: 7.5,
+        marginTop: 12,
+        marginBottom: 12,
     },
     view: {
-        height: 50,
+        height: 60,
         width: '90%',
         borderRadius: 5,
         justifyContent: 'center',
@@ -89,7 +90,9 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        height: 50,
+        //height: 50,
+        width: 120,
+        //backgroundColor: 'white'
     },
     firstBlock: {
         flex:1,
