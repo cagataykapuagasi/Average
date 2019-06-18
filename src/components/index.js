@@ -1,7 +1,8 @@
 import Button from './button';
-import AverageList from './averageList';
-import AverageHidden from './averageHidden';
-import Average from './average';
+import AverageList from './lesson/lessonList';
+import AverageHidden from './lesson/lessonHidden';
+import Average from './lesson/lesson';
+
 export {
     Button,
     AverageList,
