@@ -21,14 +21,16 @@ export default class AverageScreen extends Component {
     }
 
     changeLessonNumber = (value) => {
-        const { mainStore } = this.props.rootStore;
+        const { averageStore } = this.props.rootStore;
 
-        mainStore.addAverages(value);
+        averageStore.addLessons(value);
     }
 
     render() {
-        const { mainStore } = this.props.rootStore;
-        const data = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }, { value: 6 }, { value: 7 }, { value: 8 }, { value: 9 }, { value: 10 }];
+        const { averageStore } = this.props.rootStore;
+        const data = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 },
+            { value: 5 }, { value: 6 }, { value: 7 }, { value: 8 }, { value: 9 }, { value: 10 }];
+
         return (
             <View style={styles.main}>
                 <StatusBar barStyle={Platform.OS === 'ios' ? "light-content" : 'default'} />
@@ -44,8 +46,10 @@ export default class AverageScreen extends Component {
 
                     <View style={styles.rightHeader}>
                         <View style={{ left: 20 }}>
-                            <TextInput value={mainStore.currentAverageItem.listName} onChangeText={(value) => mainStore.currentAverageItem.listName = value}
-                                ref="input" placeholder="Liste Adı" placeholderTextColor="white" style={styles.rightHeader_1} />
+                            <TextInput value={averageStore.currentAverageItem.listName}
+                                onChangeText={(value) => averageStore.currentAverageItem.listName = value}
+                                ref="input" placeholder="Liste Adı" placeholderTextColor="white"
+                                style={styles.rightHeader_1} />
                             <View style={styles.rightHeader_2} />
                         </View>
                         <Dropdown
@@ -68,12 +72,12 @@ export default class AverageScreen extends Component {
                     <SwipeListView
                         useFlatList
                         keyExtractor={(item, index) => 'key' + index}
-                        data={mainStore.averages}
+                        data={averageStore.lessons}
                         renderItem={(data) => (
                             <Average data={data} />
                         )}
                         renderHiddenItem={(data) => (
-                            <AverageHidden averages={true} data={data} />
+                            <AverageHidden lessons={true} data={data} />
                         )}
                         rightOpenValue={-55}
                         disableRightSwipe
@@ -83,11 +87,11 @@ export default class AverageScreen extends Component {
                     />
 
                     <View style={styles.buttons}>
-                        <TouchableOpacity onPress={mainStore.changeDataControl} >
+                        <TouchableOpacity onPress={averageStore.changeDataControl} >
                             <Icon name="close" size={35} color="red" />
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={mainStore.addAverageList} >
+                        <TouchableOpacity onPress={averageStore.addAverageList} >
                             <Icon name="check" size={35} color="green" />
                         </TouchableOpacity>
                     </View>
@@ -115,7 +119,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
-        //backgroundColor:''
     },
     list: {
         flex: 4,

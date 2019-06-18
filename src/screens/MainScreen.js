@@ -17,7 +17,7 @@ export default class MainScreen extends Component {
 
 
     render() {
-        const { mainStore } = this.props.rootStore;
+        const { averageStore } = this.props.rootStore;
 
         return (
             <View style={styles.main}>
@@ -30,7 +30,7 @@ export default class MainScreen extends Component {
                     </View>
 
                     <View style={styles.rightHeader}>
-                        {!mainStore.averageList.length > 0 && <Text style={styles.text}>Ders ekle -></Text>}
+                        {!averageStore.averageList.length > 0 && <Text style={styles.text}>Ders ekle -></Text>}
                         <TouchableOpacity onPress={Actions.average}>
                             <Icon name="add" size={35} color="white" />
                         </TouchableOpacity>
@@ -42,7 +42,7 @@ export default class MainScreen extends Component {
                     <SwipeListView
                         useFlatList
                         keyExtractor={(item, index) => 'key' + index}
-                        data={mainStore.averageList}
+                        data={averageStore.averageList}
                         renderItem={ (data) => (
                             <AverageList data={data} />
                         )}
