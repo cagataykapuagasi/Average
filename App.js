@@ -29,7 +29,7 @@ export default class App extends Component {
           <Tabs tabBarStyle={styles.tab} showLabel={false} >
             <Stack iconName="tasks" icon={TabIcon} hideNavBar key="mainroot">
               <Scene initial component={MainScreen} key="main" />
-              <Scene onExit={ i => rootStore.mainStore.restoreCurrentAverageItem()} key="average" component={AverageScreen} />
+              <Scene onExit={ i => rootStore.averageStore.restoreCurrentAverageItem()} key="average" component={AverageScreen} />
             </Stack>
 
             <Stack iconName="bell" icon={TabIcon}  hideNavBar key="can">
