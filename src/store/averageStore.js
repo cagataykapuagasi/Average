@@ -4,17 +4,17 @@ import { Alert } from 'react-native';
 
 let isNew = true;
 
-export default class mainStore {
+export default class averageStore {
 
     @observable averageList = [];
 
-    @observable averages = [];
+    @observable lessons = [];
 
     @observable currentAverageItem = {
         listName: undefined,
         listTime: undefined,
         average: undefined,
-        averages: [],
+        lessons: [],
         index: undefined,
     }
 
@@ -27,23 +27,27 @@ export default class mainStore {
             listName: undefined,
             listTime: undefined,
             average: undefined,
-            averages: [],
+            lessons: [],
             index: undefined,
         }
-        this.averages = [];
+        this.lessons = [];
     }
 
-    @action addAverages = (length) => {
-        this.averages = [];
+    @action addLessons = (length) => {
+        this.lessons = this.createLessons(length);
+    }
+
+    createLessons = (length) => {
+        const array = [];
         const averageItem = {
             lessonName: undefined,
             letterGrade: 'AA',
             credit: 0,
         }
-
         for (let i = 0; i < length; i++) {
-            this.averages.push(averageItem);
+            array.push(averageItem);
         }
+        return array;
     }
 
     @action addAverageList = () => {
@@ -51,7 +55,7 @@ export default class mainStore {
             listName: this.currentAverageItem.listName,
             listTime: this.getTime(),
             average: this.calculateAverage(),
-            averages: this.averages,
+            lessons: this.lessons,
         }
 
         if (isNew) {
@@ -67,9 +71,9 @@ export default class mainStore {
         this.averageList.splice(index, 1);
     }
 
-    @action deleteAverages = (index) => {
-        this.averages.splice(index, 1);
-        this.averages = this.averages.map(i => {
+    @action deleteLesson = (index) => {
+        this.lessons.splice(index, 1);
+        this.lessons = this.lessons.map(i => {
             return i;
         });
     }
@@ -77,7 +81,7 @@ export default class mainStore {
     calculateAverage = () => {
         let average = 0;
         let totalCredit = 0;
-        this.averages.map( item => {
+        this.lessons.map( item => {
             let gradeNumber = this.returnGradeNumber(item.letterGrade);
             average += parseInt(item.credit) * gradeNumber;
             totalCredit += parseInt(item.credit);
@@ -109,13 +113,8 @@ export default class mainStore {
     }
 
     fillCurrentData = (index) => {
-        //this.currentAverageItem.listTime = this.averageList[index].listTime;
-        //this.currentAverageItem.averages = this.averageList[index].averages;
-        //this.currentAverageItem.average = this.averageList[index].average;
-        //this.currentAverageItem.listName = this.averageList[index].listName;
-        //this.currentAverageItem.index = index;
         this.currentAverageItem = this.averageList[index];
-        this.averages = this.averageList[index].averages;
+        this.lessons = this.averageList[index].lessons;
         isNew = false;
     }
 
