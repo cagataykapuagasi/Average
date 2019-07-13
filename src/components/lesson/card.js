@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';

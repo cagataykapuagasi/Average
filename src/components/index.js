@@ -1,11 +1,5 @@
 import Button from './button';
-import AverageList from './lesson/lessonList';
-import AverageHidden from './lesson/lessonHidden';
-import Average from './lesson/lesson';
+import { Lesson, LessonHidden, AverageCard } from './lesson';
+import { TabIcon } from './navigation';
 
-export {
-    Button,
-    AverageList,
-    Average,
-    AverageHidden,
-}
+export { Button, Lesson, LessonHidden, AverageCard, TabIcon };

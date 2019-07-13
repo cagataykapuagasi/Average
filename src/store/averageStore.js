@@ -65,6 +65,7 @@ export default class averageStore {
         }
         isNew = true;
         Actions.main();
+        this.restoreCurrentAverageItem();
     }
 
     @action deleteAverageList = (index) => {
