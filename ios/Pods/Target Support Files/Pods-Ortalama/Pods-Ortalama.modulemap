@@ -1,0 +1,6 @@
+framework module Pods_Ortalama {
+  umbrella header "Pods-Ortalama-umbrella.h"
+
+  export *
+  module * { export * }
+}
