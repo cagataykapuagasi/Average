@@ -1,11 +1,11 @@
-import MainScreen from './MainScreen';
-import BellCurveScreen from './BellCurveScreen';
-import SettingsScreen from './SettingsScreen';
-import AverageScreen from './AverageScreen';
+import Main from './Main';
+import BellCurve from './BellCurve';
+import Settings from './Settings';
+import Average from './Average';
 
 export {
-    MainScreen,
-    BellCurveScreen,
-    SettingsScreen,
-    AverageScreen,
+    Main,
+    BellCurve,
+    Settings,
+    Average,
 }

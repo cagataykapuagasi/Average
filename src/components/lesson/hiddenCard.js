@@ -4,18 +4,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { observer, inject } from 'mobx-react';
 import LinearGradient from 'react-native-linear-gradient';
 
-@inject('rootStore')
+@inject('store')
 @observer
 export default class LessonHidden extends Component {
 
     forwardIndex = () => {
-        const { averageStore } = this.props.rootStore;
+        const { average } = this.props.store;
         const { props } = this;
         
         if (!props.lessons) {
-            averageStore.deleteAverageList(props.data.index);
+            average.deleteAverageList(props.data.index);
         } else {
-            averageStore.deleteLesson(props.data.index);
+            average.deleteLesson(props.data.index);
         }
     }
  

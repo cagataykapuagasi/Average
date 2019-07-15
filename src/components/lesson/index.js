@@ -1,5 +1,5 @@
 import Lesson from './card';
 import LessonHidden from './hiddenCard';
-import AverageCard from './averageCard';
+import TermCard from './termCard';
 
-export { Lesson, LessonHidden, AverageCard };
+export { Lesson, LessonHidden, TermCard };

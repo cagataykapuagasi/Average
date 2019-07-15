@@ -29,3 +29,5 @@ export default class curveStore {
 
 
 }
+
+export const curve = new curveStore();

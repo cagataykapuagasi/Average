@@ -28,7 +28,6 @@ export default class SettingsScreen extends Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: '#1d1d1d'
     },
     part : {
         flex: 1,
