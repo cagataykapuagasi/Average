@@ -1,21 +1,23 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
-  StatusBar,
-  Platform,
   StyleSheet,
   TouchableOpacity,
-  TextInput
-} from "react-native";
-import { observer, inject } from "mobx-react";
-import { LessonHidden, Lesson } from "../components";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { Dropdown } from "react-native-material-dropdown";
-import { Actions } from "react-native-router-flux";
-import { SwipeListView } from "react-native-swipe-list-view";
-import { newLesson } from "../schema/lesson";
+  TextInput,
+  Dimensions,
+  Text,
+} from 'react-native';
+import { observer, inject } from 'mobx-react';
+import { LessonHidden, Lesson, SlidingDropDown } from '../components';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Actions } from 'react-native-router-flux';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { newLesson } from '../schema/lesson';
+import { colors } from 'res';
 
-@inject("store")
+const { width } = Dimensions.get('window');
+
+@inject('store')
 @observer
 export default class AverageScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -27,27 +29,27 @@ export default class AverageScreen extends Component {
       if (listName) {
         title = listName;
       } else {
-        title = "İsimsiz";
+        title = 'İsimsiz';
       }
     } else {
-      title = "Yeni Liste";
+      title = 'Yeni Liste';
     }
 
     return {
-      title
+      title,
     };
   };
 
   state = {
-    listName: "",
+    listName: '',
     lessonList: [],
-    errors: []
+    errors: [],
+    selectedNumber: 0,
   };
 
   componentDidMount() {
     this.loadLessons();
     this.refs.input.focus();
-    //console.log(this.props.data);
   }
 
   finishEdit = () => {
@@ -58,9 +60,9 @@ export default class AverageScreen extends Component {
 
     if (errors.length > 0) {
       errors.forEach(error => {
-        alert(error.index + 1 + ". dersin kredisinde sadece rakam kullanınız.");
+        alert(error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.');
         console.log(
-          error.index + 1 + ". dersin kredisinde sadece rakam kullanınız."
+          error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.'
         );
       }); //demo
       return;
@@ -70,12 +72,12 @@ export default class AverageScreen extends Component {
 
   createLessons = length => {
     this.setState({
-      lessonList: []
+      lessonList: [],
     });
 
     for (let i = 0; i < length; i++) {
       this.setState(prevState => ({
-        lessonList: [...prevState.lessonList, new newLesson()]
+        lessonList: [...prevState.lessonList, new newLesson()],
       }));
     }
   };
@@ -86,24 +88,37 @@ export default class AverageScreen extends Component {
     if (!data) {
       return;
     }
+
+    const {
+      data: {
+        item: { lessonList, listName },
+      },
+    } = this.props;
+
     this.setState({
-      listName: data.item.listName
+      listName: listName,
+      selectedNumber: lessonList.length,
     });
-    data.item.lessonList.map(item => {
+    lessonList.map(item => {
       this.setState(prevState => ({
-        lessonList: [...prevState.lessonList, item]
+        lessonList: [...prevState.lessonList, item],
       }));
     });
   };
 
   onChangeName = value => {
     this.setState({
-      listName: value
+      listName: value,
     });
   };
 
-  changeLessonNumber = length => {
-    this.createLessons(length);
+  changeLessonNumber = selectedNumber => {
+    this.setState(
+      {
+        selectedNumber,
+      },
+      () => this.createLessons(selectedNumber)
+    );
   };
 
   onChangeLesson = (value, type, index) => {
@@ -126,7 +141,7 @@ export default class AverageScreen extends Component {
 
     if (error) {
       this.setState(prevState => ({
-        errors: [...prevState.errors, _error]
+        errors: [...prevState.errors, _error],
       }));
     }
   };
@@ -146,78 +161,50 @@ export default class AverageScreen extends Component {
   };
 
   render() {
-    const { listName, lessonList } = this.state;
-    const dropdownValues = [
-      { value: 1 },
-      { value: 2 },
-      { value: 3 },
-      { value: 4 },
-      { value: 5 },
-      { value: 6 },
-      { value: 7 },
-      { value: 8 },
-      { value: 9 },
-      { value: 10 }
-    ];
-
-    //console.log('state', this.state);
+    const { listName, lessonList, selectedNumber } = this.state;
 
     return (
       <View style={styles.main}>
-        <StatusBar
-          barStyle={Platform.OS === "ios" ? "light-content" : "default"}
-        />
-
         <View style={styles.header}>
-          <View style={{ left: 20 }}>
+          <View style={styles.leftHeader}>
             <TextInput
               value={listName}
               onChangeText={this.onChangeName}
               ref="input"
-              placeholder="Liste Adı"
+              placeholder="Liste Adı..."
               placeholderTextColor="white"
-              style={styles.rightHeader_1}
+              style={styles.textInput}
             />
-            <View style={styles.rightHeader_2} />
           </View>
-          <Dropdown
-            label="Ders sayısı"
-            data={dropdownValues}
-            dropdownPosition={-5}
-            textColor="white"
-            itemColor="#c3c3c3"
-            pickerStyle={{ backgroundColor: "#2d2d2d" }}
-            baseColor="white"
-            containerStyle={styles.dropdown}
-            onChangeText={value => {
-              this.changeLessonNumber(value);
-            }}
-          />
+          <View style={styles.rightHeader}>
+            <SlidingDropDown
+              changeLessonNumber={this.changeLessonNumber}
+              selectedNumber={selectedNumber}
+            />
+          </View>
         </View>
 
-        <View style={styles.list}>
-          <SwipeListView
-            useFlatList
-            keyExtractor={(item, index) => "key" + index}
-            data={lessonList}
-            renderItem={this.renderItem}
-            renderHiddenItem={this.renderHiddenItem}
-            rightOpenValue={-55}
-            disableRightSwipe
-            previewDuration={500}
-            previewOpenValue={-55}
-            previewRowKey="key0"
-          />
+        <SwipeListView
+          useFlatList
+          keyExtractor={(item, index) => 'key' + index}
+          data={lessonList}
+          renderItem={this.renderItem}
+          renderHiddenItem={this.renderHiddenItem}
+          rightOpenValue={-55}
+          disableRightSwipe
+          previewDuration={500}
+          previewOpenValue={-55}
+          previewRowKey="key0"
+        />
 
-          <View style={styles.buttons}>
-            <TouchableOpacity onPress={Actions.pop}>
-              <Icon name="close" size={35} color="red" />
-            </TouchableOpacity>
+        <View style={styles.buttons}>
+          <TouchableOpacity onPress={Actions.pop}>
+            <Icon name="close" size={35} color="red" />
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.finishEdit}>
-              <Icon name="check" size={35} color="green" />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={this.finishEdit}>
+            <Icon name="check" size={35} color={colors.secondary} />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -227,49 +214,38 @@ export default class AverageScreen extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    paddingTop: 30
+    paddingVertical: 20,
   },
   header: {
-    flex: 1,
-    flexDirection: "row"
-  },
-  list: {
-    flex: 12
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
   mainText: {
     right: 0,
     fontSize: 16,
     left: 20,
-    color: "white",
-    fontWeight: "bold"
+    color: 'white',
+    fontWeight: 'bold',
   },
-  header_1: {
+  textInput: {
+    color: 'white',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'white',
+    width: '90%',
+    height: 49,
+  },
+  leftHeader: {
     flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    left: 10
   },
-  rightHeader_1: {
-    height: 35,
-    width: 150,
-    color: "white"
-  },
-  rightHeader_2: {
-    height: 0.4,
-    backgroundColor: "white"
-  },
-  dropdown: {
-    height: 40,
-    width: 120,
-    justifyContent: "center",
-    left: 80,
-    bottom: 7
+  rightHeader: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
   buttons: {
-    height: "15%",
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
-  }
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
 });

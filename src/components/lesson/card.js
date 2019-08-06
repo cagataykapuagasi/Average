@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { Actions } from "react-native-router-flux";
-import { Dropdown } from "react-native-material-dropdown";
-import { observer, inject } from "mobx-react";
-import { letterGrade } from "../../util/grades";
-import color from "../../../assets/colors";
+import React, { Component } from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Actions } from 'react-native-router-flux';
+import { Dropdown } from 'react-native-material-dropdown';
+import { observer, inject } from 'mobx-react';
+import { letterGrade } from '../../util/grades';
+import { colors } from 'res';
 
-@inject("store")
+@inject('store')
 @observer
 export default class Lesson extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ export default class Lesson extends Component {
 
   state = {
     showError: false,
-    creditColor: "white"
+    creditColor: 'white',
   };
 
   onChangeText = (value, type) => {
@@ -34,13 +34,13 @@ export default class Lesson extends Component {
     if (credit && !credit.match(/^-{0,1}\d+$/)) {
       this.setState({
         showError: true,
-        creditColor: color.errorText
+        creditColor: colors.errorText,
       });
       this.props.catchError(true, index);
     } else {
       this.setState({
         showError: false,
-        creditColor: color.text
+        creditColor: colors.text,
       });
       this.props.catchError(false, index);
     }
@@ -55,14 +55,13 @@ export default class Lesson extends Component {
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          colors={["#1d1d1d", "#2d2d2d", "#3d3d3d"]}
-          style={styles.view}
-        >
+          colors={['#1d1d1d', '#2d2d2d', '#3d3d3d']}
+          style={styles.view}>
           <View style={styles.firstBlock}>
             <View style={styles.firstBlock_1}>
               <TextInput
                 value={name}
-                onChangeText={value => this.onChangeText(value, "name")}
+                onChangeText={value => this.onChangeText(value, 'name')}
                 placeholder="Ders Adı..."
                 placeholderTextColor="white"
                 style={styles.text}
@@ -78,7 +77,7 @@ export default class Lesson extends Component {
             <View style={styles.secondBlock_1}>
               <TextInput
                 value={credit}
-                onChangeText={value => this.onChangeText(value, "credit")}
+                onChangeText={value => this.onChangeText(value, 'credit')}
                 keyboardType="decimal-pad"
                 placeholder="Ders Kredisi..."
                 placeholderTextColor="white"
@@ -90,7 +89,7 @@ export default class Lesson extends Component {
                   name="error-outline"
                   style={styles.errorIcon}
                   size={20}
-                  color={color.error}
+                  color={colors.error}
                 />
               )}
             </View>
@@ -102,10 +101,10 @@ export default class Lesson extends Component {
                 dropdownPosition={-5}
                 textColor="white"
                 itemColor="#c3c3c3"
-                pickerStyle={{ backgroundColor: "#2d2d2d" }}
+                pickerStyle={{ backgroundColor: '#2d2d2d' }}
                 baseColor="white"
                 containerStyle={styles.dropdown}
-                onChangeText={value => this.onChangeText(value, "grade")}
+                onChangeText={value => this.onChangeText(value, 'grade')}
               />
             </View>
           </View>
@@ -117,65 +116,64 @@ export default class Lesson extends Component {
 
 const styles = StyleSheet.create({
   main: {
-    height: 50,
-    width: "100%",
-    alignItems: "center",
-    marginTop: 12,
-    marginBottom: 12
+    height: 70,
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   view: {
-    height: 60,
-    width: "90%",
+    height: 70,
+    width: '90%',
     borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 0.3,
-    borderColor: "gray",
-    marginRight: 2
+    borderColor: 'gray',
+    marginRight: 2,
   },
   text: {
-    color: "white",
-    maxWidth: 120
+    color: 'white',
+    maxWidth: 120,
   },
   firstBlock: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   firstBlock_1: {
     flex: 1,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     left: 10,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   firstBlock_2: {
     flex: 1,
-    alignItems: "flex-end",
-    justifyContent: "center"
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   secondBlock: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   secondBlock_1: {
     flex: 2,
-    alignItems: "center",
+    alignItems: 'center',
     left: 10,
-    flexDirection: "row",
-    justifyContent: "flex-start"
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
   secondBlock_2: {
     flex: 1,
-    alignItems: "flex-end",
-    right: 5
+    alignItems: 'flex-end',
+    right: 5,
   },
   dropdown: {
     height: 40,
     width: 50,
-    justifyContent: "center",
-    bottom: 8
+    justifyContent: 'center',
+    bottom: 8,
   },
   errorIcon: {
-    left: 5
-  }
+    left: 5,
+  },
 });

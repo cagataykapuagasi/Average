@@ -7,49 +7,50 @@ import LinearGradient from 'react-native-linear-gradient';
 @inject('store')
 @observer
 export default class LessonHidden extends Component {
+  forwardIndex = () => {
+    const { average } = this.props.store;
+    const { props } = this;
 
-    forwardIndex = () => {
-        const { average } = this.props.store;
-        const { props } = this;
-        
-        if (!props.lessons) {
-            average.deleteAverageList(props.data.index);
-        } else {
-            average.deleteLesson(props.data.index);
-        }
+    if (!props.lessons) {
+      average.deleteAverageList(props.data.index);
+    } else {
+      average.deleteLesson(props.data.index);
     }
- 
-    render() {
-        const { text, color } = this.props;
+  };
 
-        return (
-            <View style={styles.main} >
-                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#6c0608', '#920b0d', '#ac0b0e']} style={styles.view}>
-                    <TouchableOpacity onPress={this.forwardIndex} >
-                            <Icon name="delete" size={25} color="white" /> 
-                    </TouchableOpacity>
-                </LinearGradient>                  
-            </View>
-        )
-    }
+  render() {
+    const { text, color } = this.props;
+
+    return (
+      <View style={styles.main}>
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={['#6c0608', '#920b0d', '#ac0b0e']}
+          style={styles.view}>
+          <TouchableOpacity onPress={this.forwardIndex}>
+            <Icon name="delete" size={25} color="white" />
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    main: {
-        height: 60,
-        width: '100%',
-        alignItems: 'flex-end',
-        marginTop: 12,
-        marginBottom: 12,
-    },
-    view: {
-        height: 60,
-        width: '16%',
-        backgroundColor: '#560405',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: 18
-        
-    },
-})
+  main: {
+    height: 70,
+    width: '100%',
+    alignItems: 'flex-end',
+    marginBottom: 20,
+  },
+  view: {
+    height: 70,
+    width: '16%',
+    backgroundColor: '#560405',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 18,
+  },
+});

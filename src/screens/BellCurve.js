@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
   StatusBar,
@@ -6,13 +6,13 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Text
-} from "react-native";
-import { Button } from "../components";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { observer, inject } from "mobx-react";
+  Text,
+} from 'react-native';
+import { Button } from '../components';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { observer, inject } from 'mobx-react';
 
-@inject("store")
+@inject('store')
 @observer
 export default class BellCurveScreen extends Component {
   onChangeText = () => {};
@@ -22,9 +22,7 @@ export default class BellCurveScreen extends Component {
 
     return (
       <View style={styles.main}>
-        <StatusBar
-          barStyle={Platform.OS === "ios" ? "light-content" : "default"}
-        />
+        <StatusBar barStyle={Platform.OS === 'ios' ? 'light-content' : 'default'} />
 
         <View style={styles.firstHeader}>
           <View style={styles.part}>
@@ -63,11 +61,8 @@ export default class BellCurveScreen extends Component {
           <View style={styles.sdButton}>
             <Text style={styles.text2}>
               Standart sapmayı bilmiyor musunuz ?
-              <Text
-                onPress={() => console.log("hello")}
-                style={[styles.text2, { color: "white" }]}
-              >
-                {" "}
+              <Text onPress={() => console.log('hello')} style={[styles.text2, { color: 'white' }]}>
+                {' '}
                 tıklayın
               </Text>
             </Text>
@@ -82,35 +77,35 @@ export default class BellCurveScreen extends Component {
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1
+    flex: 1,
   },
   part: {
-    height: "12%",
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
+    height: '12%',
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 2,
-    borderColor: "#3d3d3d",
+    borderColor: '#3d3d3d',
     borderRadius: 15,
-    marginTop: 15
+    marginTop: 15,
   },
   firstHeader: {
     flex: 2,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
-    color: "white"
+    color: 'white',
   },
   text2: {
-    color: "#c3c3c3",
-    fontSize: 12
+    color: '#c3c3c3',
+    fontSize: 12,
   },
   sdButton: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
     top: 10,
-    flexDirection: "row"
-  }
+    flexDirection: 'row',
+  },
 });

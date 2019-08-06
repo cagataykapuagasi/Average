@@ -8,10 +8,9 @@ class rootStore {
   @ignore storeLoaded = false;
 
   @observable
-  average = average
+  average = average;
   @observable
   curve = curve;
-
 }
 
 export const store = new rootStore();
@@ -25,4 +24,3 @@ const trunk = new AsyncTrunk(store, {
 trunk.init().then(() => {
   store.storeLoaded = true;
 });
-
