@@ -214,7 +214,7 @@ export default class AverageScreen extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    paddingVertical: 20,
+    paddingTop: 20,
   },
   header: {
     flexDirection: 'row',
@@ -247,5 +247,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    paddingVertical: 10,
   },
 });

@@ -55,7 +55,7 @@ class SlidingDropDown extends Component {
       flatlist.scrollToOffset({ animated: true, offset: 50 });
       setTimeout(() => {
         flatlist.scrollToOffset({ animated: true, offset: 0 });
-      }, 300);
+      }, 500);
     }
   };
 

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {
   View,
-  StatusBar,
-  Platform,
   StyleSheet,
   TouchableOpacity,
   Text,
-  FlatList,
+  SafeAreaView,
 } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { LessonHidden, TermCard } from '../components';
@@ -16,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
 
 @inject('store')
 @observer
-export default class MainScreen extends Component {
+class MainScreen extends Component {
   goAverages = () => {
     Actions.average();
   };
@@ -33,14 +31,9 @@ export default class MainScreen extends Component {
     const { average } = this.props.store;
 
     return (
-      <View style={styles.main}>
-        <StatusBar
-          barStyle={Platform.OS === 'ios' ? 'light-content' : 'default'}
-        />
-
+      <SafeAreaView style={styles.main}>
         <View style={styles.header}>
           <Text style={styles.mainText}>Listem</Text>
-
           <View style={styles.rightHeader}>
             {!average.termList.length > 0 && (
               <Text style={styles.text}>Ders ekle -></Text>
@@ -62,25 +55,22 @@ export default class MainScreen extends Component {
           previewOpenValue={-48}
           previewRowKey="key0"
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
+export default MainScreen;
+
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
-    paddingTop: 30,
-  },
-  leftHeader: {
     flex: 1,
   },
   header: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    padding: 20,
   },
   rightHeader: {
     flexDirection: 'row',
