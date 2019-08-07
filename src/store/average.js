@@ -1,6 +1,6 @@
-import { observable, action } from "mobx";
-import { Actions } from "react-native-router-flux";
-import { ignore } from "mobx-sync";
+import { observable, action } from 'mobx';
+import { Actions } from 'react-native-router-flux';
+import { ignore } from 'mobx-sync';
 
 let isNew = true;
 
@@ -15,7 +15,7 @@ export class averageStore {
     const newTerm = {
       ...data,
       listTime,
-      average
+      average,
     };
 
     if (index !== null) {
@@ -39,37 +39,29 @@ export class averageStore {
     return average;
   };
 
-  @action deleteAverageList = index => {
-    this.averageList.splice(index, 1);
-  };
-
-  @action deleteLesson = index => {
-    this.lessons.splice(index, 1);
-    this.lessons = this.lessons.map(i => {
-      //force update
-      return i;
-    });
+  @action deleteList = index => {
+    this.termList.splice(index, 1);
   };
 
   returnGradeNumber = value => {
     switch (value) {
-      case "AA":
+      case 'AA':
         return 4.0;
-      case "BA":
+      case 'BA':
         return 3.5;
-      case "BB":
+      case 'BB':
         return 3.0;
-      case "CB":
+      case 'CB':
         return 2.5;
-      case "CC":
+      case 'CC':
         return 2.0;
-      case "DC":
+      case 'DC':
         return 1.5;
-      case "DD":
+      case 'DD':
         return 1.0;
-      case "FD":
+      case 'FD':
         return 0.5;
-      case "FF":
+      case 'FF':
         return 0;
     }
   };
@@ -78,12 +70,12 @@ export class averageStore {
     const time = new Date();
     const hours = time.getHours();
     const minutes =
-      time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
+      time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
     const day = time.getDate();
     const month = time.getMonth() + 1;
     const year = time.getFullYear();
 
-    return hours + ":" + minutes + " " + day + "/" + month + "/" + year;
+    return hours + ':' + minutes + ' ' + day + '/' + month + '/' + year;
   };
 }
 

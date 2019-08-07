@@ -71,15 +71,18 @@ export default class AverageScreen extends Component {
   };
 
   createLessons = length => {
-    this.setState({
-      lessonList: [],
-    });
-
-    for (let i = 0; i < length; i++) {
-      this.setState(prevState => ({
-        lessonList: [...prevState.lessonList, new newLesson()],
-      }));
-    }
+    this.setState(
+      {
+        lessonList: [],
+      },
+      () => {
+        for (let i = 0; i < length; i++) {
+          this.setState(prevState => ({
+            lessonList: [...prevState.lessonList, new newLesson()],
+          }));
+        }
+      }
+    );
   };
 
   loadLessons = () => {
@@ -146,6 +149,15 @@ export default class AverageScreen extends Component {
     }
   };
 
+  toggleDelete = index => {
+    const { lessonList } = this.state;
+    let newList = lessonList;
+    newList.splice(index, 1);
+    this.setState({
+      lessonList: newList,
+    });
+  };
+
   renderItem = data => {
     return (
       <Lesson
@@ -156,8 +168,13 @@ export default class AverageScreen extends Component {
     );
   };
 
-  renderHiddenItem = data => {
-    return <LessonHidden lessons={true} data={data} />;
+  renderHiddenItem = item => {
+    // const { data } = this.props;
+    // let listIndex = null;
+    // if (data) {
+    //   listIndex = data.index;
+    // }
+    return <LessonHidden toggleDelete={this.toggleDelete} item={item} />;
   };
 
   render() {

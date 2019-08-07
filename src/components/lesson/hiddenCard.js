@@ -8,14 +8,19 @@ import LinearGradient from 'react-native-linear-gradient';
 @observer
 export default class LessonHidden extends Component {
   forwardIndex = () => {
-    const { average } = this.props.store;
     const { props } = this;
+    const { toggleDelete } = props;
+    const { average } = props.store;
+    const { index } = props.item;
 
-    if (!props.lessons) {
-      average.deleteAverageList(props.data.index);
-    } else {
-      average.deleteLesson(props.data.index);
-    }
+    //console.log('hidden baba', listIndex);
+    // if (!listIndex) {
+    //   average.deleteList(index);
+    //   return;
+    // }
+    // average.deleteLesson(listIndex, index);
+
+    toggleDelete(index);
   };
 
   render() {

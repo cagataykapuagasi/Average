@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux';
 @inject('store')
 @observer
 class MainScreen extends Component {
-  goAverages = () => {
+  newList = () => {
     Actions.average();
   };
 
@@ -24,7 +24,13 @@ class MainScreen extends Component {
   };
 
   renderHiddenItem = item => {
-    return <LessonHidden lessons={true} data={item} />;
+    return <LessonHidden toggleDelete={this.toggleDelete} item={item} />;
+  };
+
+  toggleDelete = index => {
+    const { average } = this.props.store;
+
+    average.deleteList(index);
   };
 
   render() {
@@ -38,7 +44,7 @@ class MainScreen extends Component {
             {!average.termList.length > 0 && (
               <Text style={styles.text}>Ders ekle -></Text>
             )}
-            <TouchableOpacity onPress={this.goAverages}>
+            <TouchableOpacity onPress={this.newList}>
               <Icon name="add" style={styles.icon} size={35} color="white" />
             </TouchableOpacity>
           </View>
@@ -49,10 +55,10 @@ class MainScreen extends Component {
           data={average.termList}
           renderItem={this.renderItem}
           renderHiddenItem={this.renderHiddenItem}
-          rightOpenValue={-48}
+          rightOpenValue={-55}
           disableRightSwipe
           previewDuration={500}
-          previewOpenValue={-48}
+          previewOpenValue={-55}
           previewRowKey="key0"
         />
       </SafeAreaView>
