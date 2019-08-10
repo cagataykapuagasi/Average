@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-
+import { colors } from 'res';
+import Icon from '../icon';
 
 class TabIcon extends Component {
   render() {
-    const color = this.props.focused ? "white" : "gray"
+    const {
+      focusedIcon,
+      unFocusedIcon,
+      focused,
+      iconType,
+      iconSize,
+    } = this.props;
+    const color = focused ? colors.text : colors.secondary;
+    const icon = focused ? focusedIcon : unFocusedIcon;
     return (
-      <Icon name={this.props.iconName || "user-o"} size={30} color={color} />
-    )
+      <Icon type={iconType} name={icon} size={iconSize || 30} color={color} />
+    );
   }
 }
 
