@@ -4,12 +4,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import { Dropdown } from 'react-native-material-dropdown';
-import { observer, inject } from 'mobx-react';
 import { letterGrade } from '../../util/grades';
 import { colors } from 'res';
 
-@inject('store')
-@observer
 export default class Lesson extends Component {
   componentDidMount() {
     this.onBlurCredit();
@@ -22,9 +19,8 @@ export default class Lesson extends Component {
 
   onChangeText = (value, type) => {
     const { index } = this.props.data;
-    const { showError } = this.state;
 
-    this.props.onChangeLesson(value, type, index, showError);
+    this.props.onChangeLesson(value, type, index);
   };
 
   onBlurCredit = () => {

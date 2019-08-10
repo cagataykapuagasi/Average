@@ -12,8 +12,8 @@ export default class Item extends Component {
   render() {
     const { item, index, selectedNumber } = this.props;
     const borderColor =
-      selectedNumber === index ? colors.secondary : colors.text;
-    const color = selectedNumber === index ? colors.secondary : colors.text;
+      selectedNumber === index ? colors.dropdown : colors.text;
+    const color = selectedNumber === index ? colors.dropdown : colors.text;
 
     return (
       <TouchableOpacity

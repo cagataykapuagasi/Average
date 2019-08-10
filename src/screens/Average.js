@@ -1,39 +1,18 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Dimensions,
-  Text,
-} from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 import { observer, inject } from 'mobx-react';
-import { LessonHidden, Lesson, SlidingDropDown } from '../components';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Actions } from 'react-native-router-flux';
+import { LessonHidden, Lesson, SlidingDropDown, Button } from '../components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { newLesson } from '../schema/lesson';
 import { colors } from 'res';
-
-const { width } = Dimensions.get('window');
+import { calculateNavigation } from '~/util/navigationOptions';
 
 @inject('store')
 @observer
-export default class AverageScreen extends Component {
+class AverageScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    let title;
-    if (params.data) {
-      const { listName } = params.data.item;
-
-      if (listName) {
-        title = listName;
-      } else {
-        title = 'İsimsiz';
-      }
-    } else {
-      title = 'Yeni Liste';
-    }
+    const title = calculateNavigation(params);
 
     return {
       title,
@@ -61,13 +40,12 @@ export default class AverageScreen extends Component {
     if (errors.length > 0) {
       errors.forEach(error => {
         alert(error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.');
-        console.log(
-          error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.'
-        );
+        console.warn(error);
+        return;
       }); //demo
-      return;
+    } else {
+      store.average.addNewList(newData);
     }
-    store.average.addNewList(newData);
   };
 
   createLessons = length => {
@@ -141,12 +119,21 @@ export default class AverageScreen extends Component {
 
   catchError = (error, index) => {
     const _error = { error, index };
+    const { errors } = this.state;
 
     if (error) {
-      this.setState(prevState => ({
-        errors: [...prevState.errors, _error],
-      }));
+      let newList = errors;
+      newList[index] = _error;
+      this.setState({
+        errors: newList,
+      });
+      return;
     }
+    let newList = errors;
+    newList.splice(index, 1);
+    this.setState({
+      errors: newList,
+    });
   };
 
   toggleDelete = index => {
@@ -169,11 +156,6 @@ export default class AverageScreen extends Component {
   };
 
   renderHiddenItem = item => {
-    // const { data } = this.props;
-    // let listIndex = null;
-    // if (data) {
-    //   listIndex = data.index;
-    // }
     return <LessonHidden toggleDelete={this.toggleDelete} item={item} />;
   };
 
@@ -213,20 +195,12 @@ export default class AverageScreen extends Component {
           previewOpenValue={-55}
           previewRowKey="key0"
         />
-
-        <View style={styles.buttons}>
-          <TouchableOpacity onPress={Actions.pop}>
-            <Icon name="close" size={35} color="red" />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={this.finishEdit}>
-            <Icon name="check" size={35} color={colors.secondary} />
-          </TouchableOpacity>
-        </View>
       </View>
     );
   }
 }
+
+export default AverageScreen;
 
 const styles = StyleSheet.create({
   main: {
@@ -238,13 +212,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingBottom: 10,
-  },
-  mainText: {
-    right: 0,
-    fontSize: 16,
-    left: 20,
-    color: 'white',
-    fontWeight: 'bold',
   },
   textInput: {
     color: 'white',
@@ -259,11 +226,5 @@ const styles = StyleSheet.create({
   rightHeader: {
     flex: 1,
     alignItems: 'flex-end',
-  },
-  buttons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
   },
 });
