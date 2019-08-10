@@ -23,7 +23,7 @@ export class averageStore {
     } else {
       termList.push(newTerm);
     }
-    Actions.main();
+    Actions.pop();
   };
 
   calculateAverage = lessonList => {
