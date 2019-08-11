@@ -40,8 +40,6 @@ class AverageScreen extends Component {
     if (errors.length > 0) {
       errors.forEach(error => {
         alert(error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.');
-        console.warn(error);
-        return;
       }); //demo
     } else {
       store.average.addNewList(newData);
@@ -161,6 +159,7 @@ class AverageScreen extends Component {
 
   render() {
     const { listName, lessonList, selectedNumber } = this.state;
+    const { data } = this.props;
 
     return (
       <View style={styles.main}>
@@ -195,6 +194,12 @@ class AverageScreen extends Component {
           previewOpenValue={-55}
           previewRowKey="key0"
         />
+
+        {!data && (
+          <View style={styles.buttons}>
+            <Button onPress={this.finishEdit} text="Kaydet" />
+          </View>
+        )}
       </View>
     );
   }
@@ -226,5 +231,11 @@ const styles = StyleSheet.create({
   rightHeader: {
     flex: 1,
     alignItems: 'flex-end',
+  },
+  buttons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
   },
 });

@@ -3,6 +3,7 @@ import { Lesson, LessonHidden, TermCard } from './lesson';
 import { TabIcon } from './navigation';
 import SlidingDropDown from './dropdown';
 import Icon from './icon';
+import MyTextInput from './mytextinput';
 
 export {
   Button,
@@ -12,4 +13,5 @@ export {
   TabIcon,
   SlidingDropDown,
   Icon,
+  MyTextInput,
 };

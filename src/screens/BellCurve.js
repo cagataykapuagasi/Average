@@ -1,67 +1,71 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StatusBar,
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-import { Button } from '../components';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { observer, inject } from 'mobx-react';
+import { View, StyleSheet, Text } from 'react-native';
+import { MyTextInput } from '../components';
+import calculateBellCurve from '~/util/bellcurve';
 
-@inject('store')
-@observer
 export default class BellCurveScreen extends Component {
-  onChangeText = () => {};
+  state = {
+    courseGrade: '',
+    average: '',
+    sd: '',
+    bellCurve: '',
+  };
+
+  onChangeText = (value, type) => {
+    this.setState(
+      {
+        [type]: value,
+      },
+      this.calculateBellCurve()
+    );
+  };
+
+  calculateBellCurve = () => {
+    const { sd, courseGrade, average } = this.state;
+
+    const bellCurve = calculateBellCurve(sd, courseGrade, average);
+    this.setState({
+      bellCurve,
+    });
+  };
 
   render() {
-    const { curve } = this.props.store;
-
+    const { courseGrade, average, sd, bellCurve } = this.state;
+    const textinput = [
+      {
+        value: courseGrade,
+        onChangeText: value => this.onChangeText(value, 'courseGrade'),
+        placeholder: 'Ders Notu...',
+      },
+      {
+        value: average,
+        onChangeText: value => this.onChangeText(value, 'average'),
+        placeholder: 'Sınıf Ortalaması...',
+      },
+      {
+        value: sd,
+        onChangeText: value => this.onChangeText(value, 'sd'),
+        placeholder: 'Standart Sapma...',
+      },
+    ];
     return (
       <View style={styles.main}>
-        <StatusBar barStyle={Platform.OS === 'ios' ? 'light-content' : 'default'} />
-
         <View style={styles.firstHeader}>
-          <View style={styles.part}>
-            <TextInput
-              value={curve.grade}
-              onChangeText={value => curveStore.getGrade(value)}
-              keyboardType="decimal-pad"
-              placeholder="Ders Notu..."
-              placeholderTextColor="white"
-              style={styles.text}
-            />
-          </View>
-
-          <View style={styles.part}>
-            <TextInput
-              value={curve.average}
-              onChangeText={value => curve.getAverage(value)}
-              keyboardType="decimal-pad"
-              placeholder="Sınıf Ortalaması..."
-              placeholderTextColor="white"
-              style={styles.text}
-            />
-          </View>
-
-          <View style={styles.part}>
-            <TextInput
-              value={curve.sD}
-              onChangeText={value => curve.getSD(value)}
-              keyboardType="decimal-pad"
-              placeholder="Standart Sapma..."
-              placeholderTextColor="white"
-              style={styles.text}
-            />
-          </View>
-
+          {textinput.map((item, index) => {
+            return (
+              <View key={item.placeholder + index} style={styles.part}>
+                <MyTextInput
+                  onChangeText={item.onChangeText}
+                  value={item.value}
+                  placeholder={item.placeholder}
+                />
+              </View>
+            );
+          })}
           <View style={styles.sdButton}>
-            <Text style={styles.text2}>
+            <Text style={styles.text}>
               Standart sapmayı bilmiyor musunuz ?
-              <Text onPress={() => console.log('hello')} style={[styles.text2, { color: 'white' }]}>
+              <Text onPress={() => console.log('hello')} style={styles.text2}>
                 {' '}
                 tıklayın
               </Text>
@@ -69,7 +73,9 @@ export default class BellCurveScreen extends Component {
           </View>
         </View>
 
-        <View style={{ flex: 1 }} />
+        <View style={styles.secondHeader}>
+          <Text>{bellCurve}</Text>
+        </View>
       </View>
     );
   }
@@ -94,11 +100,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  secondHeader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
-    color: 'white',
+    color: '#c3c3c3',
+    fontSize: 12,
   },
   text2: {
-    color: '#c3c3c3',
+    color: '#fff',
     fontSize: 12,
   },
   sdButton: {
