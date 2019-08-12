@@ -16,14 +16,16 @@ export default class BellCurveScreen extends Component {
       {
         [type]: value,
       },
-      this.calculateBellCurve()
+      this.calculateBellCurve(value, type)
     );
   };
 
-  calculateBellCurve = () => {
-    const { sd, courseGrade, average } = this.state;
-
+  calculateBellCurve = (value, type) => {
+    const sd = type === 'sd' ? value : null;
+    const courseGrade = type === 'courseGrade' ? value : null;
+    const average = type === 'average' ? value : null;
     const bellCurve = calculateBellCurve(sd, courseGrade, average);
+
     this.setState({
       bellCurve,
     });

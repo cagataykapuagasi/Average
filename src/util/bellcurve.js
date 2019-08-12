@@ -1,12 +1,20 @@
-const calculateBellCurve = (sd, courseGrade, average) => {
-  const times = (average - courseGrade) / sd;
-  const isMoreThanAverage = positiveControl(times);
+let sd, courseGrade, average;
 
+const calculateBellCurve = (_sd, _courseGrade, _average) => {
+  fillValues(_sd, _courseGrade, _average);
+  let times = (average - courseGrade) / sd;
+  const isMoreThanAverage = positiveControl(times);
+  times = convertPositive(isMoreThanAverage, times);
+  let catchE = null;
+  catchE = checkNullPlaces(times);
+  if (catchE) {
+    return catchE;
+  }
   return getLetterGrade(isMoreThanAverage, times);
 };
 
 const getLetterGrade = (isMoreThanAverage, times) => {
-  if (times < 1) {
+  if (times < 1 && times > 0) {
     return 'CC';
   }
 
@@ -21,7 +29,7 @@ const getLetterGrade = (isMoreThanAverage, times) => {
       case 4:
         return 'AA';
       default:
-        return 'default';
+        return 'AA';
     }
   } else {
     switch (times) {
@@ -34,17 +42,50 @@ const getLetterGrade = (isMoreThanAverage, times) => {
       case 4:
         return 'FF';
       default:
-        return 'default';
+        return 'FF';
     }
   }
 };
 
 const positiveControl = value => {
   if (value > 0) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
+};
+
+const fillValues = (_sd, _courseGrade, _average) => {
+  if (_sd !== null) {
+    sd = _sd;
+  } else if (_courseGrade !== null) {
+    courseGrade = _courseGrade;
+  } else {
+    average = _average;
+  }
+};
+
+const convertPositive = (bool, number) => {
+  if (bool) {
+    return number * -1;
+  }
+  return number;
+};
+
+const checkNullPlaces = times => {
+  if (times === Infinity) {
+    return 'Standart sapma 0 olamaz.';
+  }
+  if (!courseGrade) {
+    return 'Ders notunuzu giriniz.';
+  }
+  if (!average) {
+    return 'Sınıf ortalamasını giriniz.';
+  }
+  if (!sd) {
+    return 'Standart sapmayı giriniz.';
+  }
+  return null;
 };
 
 export default calculateBellCurve;
