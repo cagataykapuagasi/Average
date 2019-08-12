@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { MyTextInput } from '../components';
 import calculateBellCurve from '~/util/bellcurve';
+import { colors } from 'res';
 
 export default class BellCurveScreen extends Component {
   state = {
@@ -76,7 +77,7 @@ export default class BellCurveScreen extends Component {
         </View>
 
         <View style={styles.secondHeader}>
-          <Text>{bellCurve}</Text>
+          <Text style={styles.resultText}>{bellCurve}</Text>
         </View>
       </View>
     );
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#3d3d3d',
+    borderColor: colors.secondary,
     borderRadius: 15,
     marginTop: 15,
   },
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   text2: {
-    color: '#fff',
+    color: colors.text,
     fontSize: 12,
   },
   sdButton: {
@@ -121,5 +122,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     top: 10,
     flexDirection: 'row',
+  },
+  resultText: {
+    color: colors.text,
+    borderWidth: 2,
+    borderColor: colors.dropdown,
+    padding: 15,
+    borderRadius: 25,
+    fontWeight: 'bold',
   },
 });

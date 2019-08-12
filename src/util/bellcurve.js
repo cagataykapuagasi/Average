@@ -19,30 +19,24 @@ const getLetterGrade = (isMoreThanAverage, times) => {
   }
 
   if (isMoreThanAverage) {
-    switch (times) {
-      case 1:
-        return 'CB';
-      case 2:
-        return 'BB';
-      case 3:
-        return 'BA';
-      case 4:
-        return 'AA';
-      default:
-        return 'AA';
+    if (times >= 1 && times < 2) {
+      return 'CB';
+    } else if (times >= 2 && times < 3) {
+      return 'BB';
+    } else if (times >= 3 && times < 4) {
+      return 'BA';
+    } else {
+      return 'AA';
     }
   } else {
-    switch (times) {
-      case 1:
-        return 'DC';
-      case 2:
-        return 'DD';
-      case 3:
-        return 'FD';
-      case 4:
-        return 'FF';
-      default:
-        return 'FF';
+    if (times >= 1 && times < 2) {
+      return 'DC';
+    } else if (times >= 2 && times < 3) {
+      return 'DD';
+    } else if (times >= 3 && times < 4) {
+      return 'FD';
+    } else {
+      return 'FF';
     }
   }
 };
