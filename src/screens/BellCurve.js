@@ -77,7 +77,9 @@ export default class BellCurveScreen extends Component {
         </View>
 
         <View style={styles.secondHeader}>
-          <Text style={styles.resultText}>{bellCurve}</Text>
+          <Text style={styles.resultText}>
+            {bellCurve ? bellCurve : 'Bilgilerini doldurunuz.'}
+          </Text>
         </View>
       </View>
     );

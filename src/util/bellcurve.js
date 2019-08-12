@@ -3,12 +3,11 @@ let sd, courseGrade, average;
 const calculateBellCurve = (_sd, _courseGrade, _average) => {
   fillValues(_sd, _courseGrade, _average);
   let times = (average - courseGrade) / sd;
-  const isMoreThanAverage = positiveControl(times);
-  times = convertPositive(isMoreThanAverage, times);
-  let catchE = null;
-  catchE = checkNullPlaces(times);
-  if (catchE) {
-    return catchE;
+  const isMoreThanAverage = isPositive(times);
+  times = convertPositive(times);
+  let validationString = getValidation(times);
+  if (validationString) {
+    return validationString;
   }
   return getLetterGrade(isMoreThanAverage, times);
 };
@@ -41,7 +40,7 @@ const getLetterGrade = (isMoreThanAverage, times) => {
   }
 };
 
-const positiveControl = value => {
+const isPositive = value => {
   if (value > 0) {
     return false;
   } else {
@@ -59,14 +58,14 @@ const fillValues = (_sd, _courseGrade, _average) => {
   }
 };
 
-const convertPositive = (bool, number) => {
-  if (bool) {
+const convertPositive = number => {
+  if (number < 0) {
     return number * -1;
   }
   return number;
 };
 
-const checkNullPlaces = times => {
+const getValidation = times => {
   if (times === Infinity) {
     return 'Standart sapma 0 olamaz.';
   }
