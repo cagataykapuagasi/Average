@@ -1,7 +1,7 @@
 let sd, courseGrade, average;
 
 const calculateBellCurve = (_sd, _courseGrade, _average) => {
-  fillValues(_sd, _courseGrade, _average);
+  loadValues(_sd, _courseGrade, _average);
   let times = (average - courseGrade) / sd;
   const isMoreThanAverage = isPositive(times);
   times = convertPositive(times);
@@ -48,7 +48,7 @@ const isPositive = value => {
   }
 };
 
-const fillValues = (_sd, _courseGrade, _average) => {
+const loadValues = (_sd, _courseGrade, _average) => {
   if (_sd !== null) {
     sd = _sd;
   } else if (_courseGrade !== null) {

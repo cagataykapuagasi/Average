@@ -1,5 +1,5 @@
 import { average } from './average';
-import { curve } from './curve';
+import { app } from './app';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AsyncTrunk, ignore } from 'mobx-sync';
 import { observable } from 'mobx';
@@ -10,7 +10,7 @@ class rootStore {
   @observable
   average = average;
   @observable
-  curve = curve;
+  app = app;
 }
 
 export const store = new rootStore();

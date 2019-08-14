@@ -4,15 +4,13 @@ import { observer, inject } from 'mobx-react';
 import { LessonHidden, Lesson, SlidingDropDown, Button } from '../components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { newLesson } from '../schema/lesson';
-import { colors } from 'res';
-import { calculateNavigation } from '~/util/navigationOptions';
+import { calculateTitle } from '~/util/navigationOptions';
 
 @inject('store')
-@observer
 class AverageScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
-    const title = calculateNavigation(params);
+    const title = calculateTitle(params);
 
     return {
       title,
@@ -159,7 +157,8 @@ class AverageScreen extends Component {
 
   render() {
     const { listName, lessonList, selectedNumber } = this.state;
-    const { data } = this.props;
+    const { data, colors } = this.props;
+    const styles = _styles(colors);
 
     return (
       <View style={styles.main}>
@@ -170,7 +169,7 @@ class AverageScreen extends Component {
               onChangeText={this.onChangeName}
               ref="input"
               placeholder="Liste Adı..."
-              placeholderTextColor="white"
+              placeholderTextColor={colors.text}
               style={styles.textInput}
             />
           </View>
@@ -178,6 +177,7 @@ class AverageScreen extends Component {
             <SlidingDropDown
               changeLessonNumber={this.changeLessonNumber}
               selectedNumber={selectedNumber}
+              colors={colors}
             />
           </View>
         </View>
@@ -197,7 +197,7 @@ class AverageScreen extends Component {
 
         {!data && (
           <View style={styles.buttons}>
-            <Button onPress={this.finishEdit} text="Kaydet" />
+            <Button onPress={this.finishEdit} text="Kaydet" colors={colors} />
           </View>
         )}
       </View>
@@ -207,35 +207,36 @@ class AverageScreen extends Component {
 
 export default AverageScreen;
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    paddingTop: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-  },
-  textInput: {
-    color: 'white',
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'white',
-    width: '90%',
-    height: 49,
-  },
-  leftHeader: {
-    flex: 1,
-  },
-  rightHeader: {
-    flex: 1,
-    alignItems: 'flex-end',
-  },
-  buttons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    main: {
+      flex: 1,
+      paddingTop: 20,
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingBottom: 10,
+    },
+    textInput: {
+      color: colors.text,
+      borderBottomWidth: 0.5,
+      borderBottomColor: colors.text,
+      width: '90%',
+      height: 49,
+    },
+    leftHeader: {
+      flex: 1,
+    },
+    rightHeader: {
+      flex: 1,
+      alignItems: 'flex-end',
+    },
+    buttons: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      paddingVertical: 10,
+    },
+  });

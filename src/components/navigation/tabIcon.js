@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { colors } from 'res';
 import Icon from '../icon';
 
 class TabIcon extends Component {
@@ -10,8 +9,9 @@ class TabIcon extends Component {
       focused,
       iconType,
       iconSize,
+      colors,
     } = this.props;
-    const color = focused ? colors.text : colors.secondary;
+    const color = focused ? colors.tabFocused : colors.tabUnFocused;
     const icon = focused ? focusedIcon : unFocusedIcon;
     return (
       <Icon type={iconType} name={icon} size={iconSize || 30} color={color} />

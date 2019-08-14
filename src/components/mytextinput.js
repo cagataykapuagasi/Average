@@ -9,7 +9,8 @@ export default class MyInputView extends Component {
   };
 
   render() {
-    const { value, placeholder } = this.props;
+    const { value, placeholder, colors } = this.props;
+    const styles = _styles(colors);
 
     return (
       <TextInput
@@ -17,7 +18,7 @@ export default class MyInputView extends Component {
         onChangeText={this.onChangeText}
         keyboardType="decimal-pad"
         placeholder={placeholder}
-        placeholderTextColor="white"
+        placeholderTextColor={colors.text}
         style={styles.text}
         maxLength={20}
       />
@@ -25,8 +26,9 @@ export default class MyInputView extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  text: {
-    color: 'white',
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    text: {
+      color: colors.text,
+    },
+  });

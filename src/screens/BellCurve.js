@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { MyTextInput } from '../components';
 import calculateBellCurve from '~/util/bellcurve';
-import { colors } from 'res';
+//import { colors } from 'res';
 
 export default class BellCurveScreen extends Component {
   state = {
@@ -51,6 +51,8 @@ export default class BellCurveScreen extends Component {
         placeholder: 'Standart Sapma...',
       },
     ];
+    const { colors } = this.props;
+    const styles = _styles(colors);
     return (
       <View style={styles.main}>
         <View style={styles.firstHeader}>
@@ -61,6 +63,7 @@ export default class BellCurveScreen extends Component {
                   onChangeText={item.onChangeText}
                   value={item.value}
                   placeholder={item.placeholder}
+                  colors={colors}
                 />
               </View>
             );
@@ -86,51 +89,52 @@ export default class BellCurveScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-  },
-  part: {
-    height: '12%',
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: colors.secondary,
-    borderRadius: 15,
-    marginTop: 15,
-  },
-  firstHeader: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  secondHeader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#c3c3c3',
-    fontSize: 12,
-  },
-  text2: {
-    color: colors.text,
-    fontSize: 12,
-  },
-  sdButton: {
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 10,
-    flexDirection: 'row',
-  },
-  resultText: {
-    color: colors.text,
-    borderWidth: 2,
-    borderColor: colors.dropdown,
-    padding: 15,
-    borderRadius: 25,
-    fontWeight: 'bold',
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    main: {
+      flex: 1,
+    },
+    part: {
+      height: '12%',
+      width: '80%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 2,
+      borderColor: colors.secondary,
+      borderRadius: 15,
+      marginTop: 15,
+    },
+    firstHeader: {
+      flex: 2,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    secondHeader: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    text: {
+      color: colors.tipsText,
+      fontSize: 12,
+    },
+    text2: {
+      color: colors.text,
+      fontSize: 12,
+    },
+    sdButton: {
+      width: '50%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      top: 10,
+      flexDirection: 'row',
+    },
+    resultText: {
+      color: colors.text,
+      borderWidth: 2,
+      borderColor: colors.dropdown,
+      padding: 15,
+      borderRadius: 25,
+      fontWeight: 'bold',
+    },
+  });

@@ -11,7 +11,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Item from './item';
 import { letterList } from '~/util/dropdown';
-import { colors } from 'res';
 
 class SlidingDropDown extends Component {
   state = {
@@ -60,7 +59,7 @@ class SlidingDropDown extends Component {
   };
 
   renderItem = ({ item, index }) => {
-    const { selectedNumber, changeLessonNumber } = this.props;
+    const { selectedNumber, changeLessonNumber, colors } = this.props;
 
     return (
       <Item
@@ -68,13 +67,15 @@ class SlidingDropDown extends Component {
         changeLessonNumber={changeLessonNumber}
         index={index}
         item={item}
+        colors={colors}
       />
     );
   };
 
   render() {
     const { opacity, spring } = this.state;
-    const { selectedNumber } = this.props;
+    const { selectedNumber, colors } = this.props;
+    const styles = _styles(colors);
 
     return (
       <>
@@ -105,27 +106,28 @@ class SlidingDropDown extends Component {
 
 export default SlidingDropDown;
 
-const styles = StyleSheet.create({
-  dropdownContainer: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: colors.text,
-    height: 49,
-    width: '90%',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  dropdownText: {
-    color: colors.text,
-  },
-  slideDown: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '90%',
-  },
-  flatlist: {
-    paddingBottom: 10,
-  },
-  infoText: {
-    color: colors.text,
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    dropdownContainer: {
+      borderBottomWidth: 0.5,
+      borderBottomColor: colors.text,
+      height: 49,
+      width: '90%',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    dropdownText: {
+      color: colors.text,
+    },
+    slideDown: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '90%',
+    },
+    flatlist: {
+      paddingBottom: 10,
+    },
+    infoText: {
+      color: colors.text,
+    },
+  });

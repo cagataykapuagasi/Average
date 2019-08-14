@@ -1,4 +1,4 @@
-const calculateNavigation = params => {
+const calculateTitle = params => {
   let title;
   if (params.data) {
     const { listName } = params.data.item;
@@ -15,4 +15,4 @@ const calculateNavigation = params => {
   return title;
 };
 
-export { calculateNavigation };
+export { calculateTitle };

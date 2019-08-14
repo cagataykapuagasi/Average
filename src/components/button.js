@@ -6,21 +6,20 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import { colors } from 'res';
 import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
 export default class Button extends Component {
   render() {
-    const { text, onPress } = this.props;
+    const { text, onPress, colors } = this.props;
     return (
       <View>
         <TouchableOpacity onPress={onPress}>
           <LinearGradient
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            colors={['#2d2d2d', '#4d4d4d']}
+            colors={colors.gradientButton}
             style={styles.button}>
             <Text style={styles.text}>{text}</Text>
           </LinearGradient>

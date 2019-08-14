@@ -16,7 +16,9 @@ import { Actions } from 'react-native-router-flux';
 @observer
 class MainScreen extends Component {
   newList = () => {
-    Actions.average();
+    const { colors } = this.props;
+
+    Actions.average({ colors });
   };
 
   renderItem = item => {
@@ -35,6 +37,8 @@ class MainScreen extends Component {
 
   render() {
     const { average } = this.props.store;
+    const { colors } = this.props;
+    const styles = _styles(colors);
 
     return (
       <SafeAreaView style={styles.main}>
@@ -45,7 +49,12 @@ class MainScreen extends Component {
               <Text style={styles.text}>Ders ekle -></Text>
             )}
             <TouchableOpacity onPress={this.newList}>
-              <Icon name="add" style={styles.icon} size={35} color="white" />
+              <Icon
+                name="add"
+                style={styles.icon}
+                size={35}
+                color={colors.text}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -68,30 +77,31 @@ class MainScreen extends Component {
 
 export default MainScreen;
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-  },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-  rightHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  mainText: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  text: {
-    color: '#d4d4d4',
-    right: 20,
-  },
-  icon: {
-    width: 30,
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    main: {
+      flex: 1,
+    },
+    header: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 20,
+    },
+    rightHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    mainText: {
+      fontSize: 16,
+      color: colors.text,
+      fontWeight: 'bold',
+    },
+    text: {
+      color: colors.tipsText,
+      right: 20,
+    },
+    icon: {
+      width: 30,
+    },
+  });

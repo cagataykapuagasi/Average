@@ -7,16 +7,21 @@ import { Main, BellCurve, Settings, Average } from './src/screens';
 import { colors } from 'res';
 import { TabIcon } from './src/components';
 
+@observer
 export default class App extends Component {
   render() {
+    const { colors, darkMode } = store.app;
+    const styles = _styles(colors);
+    const barStyle = darkMode ? 'light-content' : 'dark-content';
+
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle={barStyle} />
           <Router
+            colors={store.app.colors}
             tabBarStyle={styles.tab}
             backButtonTextStyle={styles.backButtonStyle}
-            backButtonTintColor={'white'}
             sceneStyle={styles.sceneStyle}
             titleStyle={styles.titleStyle}
             navigationBarStyle={styles.navigationBarStyle}
@@ -49,9 +54,8 @@ export default class App extends Component {
                 focusedIcon="md-cog"
                 iconType="ionicons"
                 icon={TabIcon}
-                hideNavBar
-                key="settings">
-                <Scene component={Settings} />
+                hideNavBar>
+                <Scene key="settings" component={Settings} />
               </Stack>
             </Tabs>
           </Router>
@@ -61,21 +65,42 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  tab: {
-    backgroundColor: '#2d2d2d',
-  },
-  navigationBarStyle: {
-    backgroundColor: colors.background,
-    borderBottomWidth: 0,
-  },
-  titleStyle: {
-    color: 'white',
-  },
-  sceneStyle: {
-    backgroundColor: colors.background,
-  },
-  backButtonStyle: {
-    color: colors.text,
-  },
-});
+// const styles = StyleSheet.create({
+//   tab: {
+//     backgroundColor: '#2d2d2d',
+//   },
+//   navigationBarStyle: {
+//     backgroundColor: colors.background,
+//     borderBottomWidth: 0,
+//   },
+//   titleStyle: {
+//     color: 'white',
+//   },
+//   sceneStyle: {
+//     backgroundColor: colors.background,
+//   },
+//   backButtonStyle: {
+//     color: colors.text,
+//   },
+// });
+
+const _styles = colors =>
+  StyleSheet.create({
+    tab: {
+      backgroundColor: colors.tabBackgroundColor,
+    },
+    navigationBarStyle: {
+      backgroundColor: colors.background,
+      borderBottomWidth: 0,
+      tintColor: 'red',
+    },
+    titleStyle: {
+      color: colors.text,
+    },
+    sceneStyle: {
+      backgroundColor: colors.background,
+    },
+    backButtonStyle: {
+      color: colors.text,
+    },
+  });
