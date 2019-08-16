@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 import { Dropdown } from 'react-native-material-dropdown';
 import { letterGrade } from '../../util/grades';
-import { colors } from 'res';
 
 export default class Lesson extends Component {
   componentDidMount() {
@@ -26,6 +25,7 @@ export default class Lesson extends Component {
   onBlurCredit = () => {
     const { credit } = this.props.data.item;
     const { index } = this.props.data;
+    const { colors } = this.props;
 
     if (credit && !credit.match(/^-{0,1}\d+$/)) {
       this.setState({
@@ -36,22 +36,24 @@ export default class Lesson extends Component {
     } else {
       this.setState({
         showError: false,
-        creditColor: colors.text,
+        creditColor: '#fff',
       });
       this.props.catchError(false, index);
     }
   };
 
   render() {
-    const { showError, creditColor } = this.state;
     const { name, credit, grade } = this.props.data.item;
+    const { showError, creditColor } = this.state;
+    const { colors } = this.props;
+    const styles = _styles(colors);
 
     return (
       <View onPress={Actions.average} style={styles.main}>
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          colors={['#1d1d1d', '#2d2d2d', '#3d3d3d']}
+          colors={colors.gradientLessonCard}
           style={styles.view}>
           <View style={styles.firstBlock}>
             <View style={styles.firstBlock_1}>
@@ -65,7 +67,11 @@ export default class Lesson extends Component {
             </View>
 
             <View style={styles.firstBlock_2}>
-              <Icon name="keyboard-arrow-left" size={25} color="red" />
+              <Icon
+                name="keyboard-arrow-left"
+                size={25}
+                color={colors.lessonCardPicker}
+              />
             </View>
           </View>
 
@@ -97,7 +103,7 @@ export default class Lesson extends Component {
                 dropdownPosition={-5}
                 textColor="white"
                 itemColor="#c3c3c3"
-                pickerStyle={{ backgroundColor: '#2d2d2d' }}
+                pickerStyle={styles.pickerStyle}
                 baseColor="white"
                 containerStyle={styles.dropdown}
                 onChangeText={value => this.onChangeText(value, 'grade')}
@@ -110,66 +116,70 @@ export default class Lesson extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  main: {
-    height: 70,
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  view: {
-    height: 70,
-    width: '90%',
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 0.3,
-    borderColor: 'gray',
-    marginRight: 2,
-  },
-  text: {
-    color: 'white',
-    maxWidth: 120,
-  },
-  firstBlock: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  firstBlock_1: {
-    flex: 1,
-    alignItems: 'flex-start',
-    left: 10,
-    justifyContent: 'center',
-  },
-  firstBlock_2: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  secondBlock: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  secondBlock_1: {
-    flex: 2,
-    alignItems: 'center',
-    left: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  secondBlock_2: {
-    flex: 1,
-    alignItems: 'flex-end',
-    right: 5,
-  },
-  dropdown: {
-    height: 40,
-    width: 50,
-    justifyContent: 'center',
-    bottom: 8,
-  },
-  errorIcon: {
-    left: 5,
-  },
-});
+const _styles = colors =>
+  StyleSheet.create({
+    main: {
+      height: 70,
+      width: '100%',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    view: {
+      height: 70,
+      width: '90%',
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 0.3,
+      borderColor: 'gray',
+      marginRight: 2,
+    },
+    text: {
+      color: 'white',
+      maxWidth: 120,
+    },
+    firstBlock: {
+      flex: 1,
+      flexDirection: 'row',
+    },
+    firstBlock_1: {
+      flex: 1,
+      alignItems: 'flex-start',
+      left: 10,
+      justifyContent: 'center',
+    },
+    firstBlock_2: {
+      flex: 1,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
+    secondBlock: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    secondBlock_1: {
+      flex: 2,
+      alignItems: 'center',
+      left: 10,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+    },
+    secondBlock_2: {
+      flex: 1,
+      alignItems: 'flex-end',
+      right: 5,
+    },
+    dropdown: {
+      height: 40,
+      width: 50,
+      justifyContent: 'center',
+      bottom: 8,
+    },
+    errorIcon: {
+      left: 5,
+    },
+    pickerStyle: {
+      backgroundColor: colors.pickerBackground,
+    },
+  });

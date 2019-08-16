@@ -22,7 +22,9 @@ class MainScreen extends Component {
   };
 
   renderItem = item => {
-    return <TermCard data={item} />;
+    const { colors } = this.props;
+
+    return <TermCard colors={colors} data={item} />;
   };
 
   renderHiddenItem = item => {

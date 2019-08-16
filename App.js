@@ -95,7 +95,7 @@ const _styles = colors =>
       tintColor: 'red',
     },
     titleStyle: {
-      color: colors.text,
+      color: colors.navigationTitle,
     },
     sceneStyle: {
       backgroundColor: colors.background,

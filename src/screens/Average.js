@@ -142,11 +142,14 @@ class AverageScreen extends Component {
   };
 
   renderItem = data => {
+    const { colors } = this.props;
+
     return (
       <Lesson
         catchError={this.catchError}
         onChangeLesson={this.onChangeLesson}
         data={data}
+        colors={colors}
       />
     );
   };
