@@ -6,9 +6,9 @@ import { Actions } from 'react-native-router-flux';
 
 export default class TermCard extends Component {
   goAverages = () => {
-    const { data } = this.props;
+    const { data, colors } = this.props;
 
-    Actions.average({ data });
+    Actions.average({ data, colors });
   };
 
   render() {
