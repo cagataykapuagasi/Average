@@ -46,9 +46,13 @@ class SlidingDropDown extends Component {
   };
 
   isFirst = () => {
-    const { selectedNumber } = this.props;
+    const { selectedNumber, showTips } = this.props;
     const { spring } = this.state;
     const { flatlist } = this.refs;
+
+    if (!showTips) {
+      return;
+    }
 
     if (spring._value > 0 && selectedNumber === 0) {
       flatlist.scrollToOffset({ animated: true, offset: 50 });

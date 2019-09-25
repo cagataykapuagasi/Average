@@ -7,6 +7,7 @@ import { newLesson } from '../schema/lesson';
 import { calculateTitle } from '~/util/navigationOptions';
 
 @inject('store')
+@observer
 class AverageScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
@@ -160,6 +161,7 @@ class AverageScreen extends Component {
 
   render() {
     const { listName, lessonList, selectedNumber } = this.state;
+    const { showTips } = this.props.store.app;
     const { data, colors } = this.props;
     const styles = _styles(colors);
 
@@ -181,6 +183,7 @@ class AverageScreen extends Component {
               changeLessonNumber={this.changeLessonNumber}
               selectedNumber={selectedNumber}
               colors={colors}
+              showTips={showTips}
             />
           </View>
         </View>
@@ -195,7 +198,7 @@ class AverageScreen extends Component {
           disableRightSwipe
           previewDuration={500}
           previewOpenValue={-55}
-          previewRowKey="key0"
+          previewRowKey={showTips ? 'key0' : null}
         />
 
         {!data && (

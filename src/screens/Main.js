@@ -38,7 +38,7 @@ class MainScreen extends Component {
   };
 
   render() {
-    const { average } = this.props.store;
+    const { average, app } = this.props.store;
     const { colors } = this.props;
     const styles = _styles(colors);
 
@@ -47,7 +47,7 @@ class MainScreen extends Component {
         <View style={styles.header}>
           <Text style={styles.mainText}>Listem</Text>
           <View style={styles.rightHeader}>
-            {!average.termList.length > 0 && (
+            {!average.termList.length > 0 && app.showTips && (
               <Text style={styles.text}>Ders ekle -></Text>
             )}
             <TouchableOpacity onPress={this.newList}>
