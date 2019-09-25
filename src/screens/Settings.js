@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Switch, Text } from 'react-native';
+import { View, StyleSheet, Switch, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { observer, inject } from 'mobx-react';
+import Rate, { AndroidMarket } from 'react-native-rate';
+
+const options = {
+  GooglePackageName: 'com.kapuagasi.cagatay.average',
+  preferredAndroidMarket: AndroidMarket.Google,
+  preferInApp: true,
+};
 
 @inject('store')
 @observer
@@ -23,33 +30,38 @@ class SettingsScreen extends Component {
     app.setShowTips(value);
   };
 
-  test = value => {
+  changeTheme = value => {
     const { app } = this.props.store;
 
     app.changeTheme(value);
   };
 
-  render() {
-    const styles = _styles(this.props.colors);
+  rateApp = () => {
     const { app } = this.props.store;
+    Rate.rate(options);
+  };
+
+  render() {
+    const { colors } = this.props;
+    const styles = _styles(colors);
+    const { showTips, darkMode } = this.props.store.app;
     const { SwitchMenu } = this;
 
     return (
       <View style={styles.main}>
-        <View style={styles.header}>
-          <Icon name="cogs" size={30} color="#900" />
-        </View>
         <View style={styles.part}>
-          <SwitchMenu menuText="Uygulamayı değerlendir" />
+          <TouchableOpacity onPress={this.rateApp} style={styles.menu}>
+            <Text style={styles.menuText}>Bizi değerlendirin</Text>
+          </TouchableOpacity>
           <SwitchMenu
             menuText="İpuçlarını göster"
-            value={app.showTips}
+            value={showTips}
             onValueChange={this.toggleTipsSwitch}
           />
           <SwitchMenu
             menuText="Karanlık mod"
-            value={app.darkMode}
-            onValueChange={this.test}
+            value={darkMode}
+            onValueChange={this.changeTheme}
           />
           <SwitchMenu menuText="Bildirimler" />
         </View>
@@ -93,12 +105,9 @@ const _styles = colors =>
       flex: 1,
       paddingHorizontal: 20,
     },
-    header: {
-      flex: 1,
-    },
     part: {
-      flex: 2,
-      justifyContent: 'center',
+      flex: 1,
+      paddingTop: 50,
     },
     menu: {
       flexDirection: 'row',

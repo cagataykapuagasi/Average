@@ -1,7 +1,7 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/RNCAsyncStorage" "${PODS_ROOT}/Headers/Public/React" "${PODS_ROOT}/Headers/Public/yoga"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/RNCAsyncStorage" "${PODS_CONFIGURATION_BUILD_DIR}/React" "${PODS_CONFIGURATION_BUILD_DIR}/yoga"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"RNCAsyncStorage" -l"React" -l"stdc++" -l"yoga" -framework "JavaScriptCore"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/RNCAsyncStorage" "${PODS_ROOT}/Headers/Public/RNRate" "${PODS_ROOT}/Headers/Public/React" "${PODS_ROOT}/Headers/Public/yoga"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/RNCAsyncStorage" "${PODS_CONFIGURATION_BUILD_DIR}/RNRate" "${PODS_CONFIGURATION_BUILD_DIR}/React" "${PODS_CONFIGURATION_BUILD_DIR}/yoga"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"RNCAsyncStorage" -l"RNRate" -l"React" -l"stdc++" -l"yoga" -framework "JavaScriptCore"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

@@ -5884,6 +5884,11 @@ react-native-popup-dialog@^0.18.2:
     prop-types "^15.6.0"
     react-native-root-siblings "^3.1.7"
 
+react-native-rate@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.1.7.tgz#68e613afef5c29e71305ef0d2fd47befdd87e064"
+  integrity sha512-wsutrWcjV0Zl7zqjyHUl6G/6MyksJS3zOhJ3dxw7mnQPDT7/jxeb3G2IsltITy7XE1b5C6fuOLwngfzIzZMF6w==
+
 react-native-root-siblings@^3.1.7:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-3.2.1.tgz#06bd8722babe8a30e914b73eae4beffa3218ec57"

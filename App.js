@@ -54,7 +54,7 @@ export default class App extends Component {
                 focusedIcon="md-cog"
                 iconType="ionicons"
                 icon={TabIcon}
-                hideNavBar>
+                title="Ayarlar">
                 <Scene key="settings" component={Settings} />
               </Stack>
             </Tabs>

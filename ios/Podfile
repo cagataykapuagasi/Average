@@ -11,6 +11,7 @@ target 'Ortalama' do
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+  pod 'RNRate', :path => '../node_modules/react-native-rate/ios'
 
 end
 

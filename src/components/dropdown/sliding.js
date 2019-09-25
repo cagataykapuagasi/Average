@@ -42,10 +42,10 @@ class SlidingDropDown extends Component {
         duration: 200,
         easing: Easing.ease,
       }),
-    ]).start(this.isFirst);
+    ]).start(this.showTip);
   };
 
-  isFirst = () => {
+  showTip = () => {
     const { selectedNumber, showTips } = this.props;
     const { spring } = this.state;
     const { flatlist } = this.refs;

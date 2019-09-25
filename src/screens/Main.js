@@ -70,7 +70,7 @@ class MainScreen extends Component {
           disableRightSwipe
           previewDuration={500}
           previewOpenValue={-55}
-          previewRowKey="key0"
+          previewRowKey={app.showTips ? 'key0' : null}
         />
       </SafeAreaView>
     );
