@@ -36,28 +36,33 @@ class AverageScreen extends Component {
     const index = data ? data.index : null;
     const newData = { listName, lessonList, index };
 
-    if (errors.length > 0) {
-      errors.forEach(error => {
-        alert(error.index + 1 + '. dersin kredisinde sadece rakam kullanınız.');
+    const filteredErrors = errors.filter(item => item !== null);
+
+    if (filteredErrors.length > 0) {
+      let errorText = '';
+      filteredErrors.forEach(error => {
+        errorText += error.index + 1 + ' ';
       }); //demo
-    } else {
-      store.average.addNewList(newData);
+      alert(
+        errorText + 'sıralı derslerin kredilerinde sadece rakam kullanınız.'
+      );
+      return;
     }
+    store.average.addNewList(newData);
   };
 
   createLessons = length => {
-    this.setState(
-      {
-        lessonList: [],
-      },
-      () => {
-        for (let i = 0; i < length; i++) {
-          this.setState(prevState => ({
-            lessonList: [...prevState.lessonList, new newLesson()],
-          }));
-        }
-      }
-    );
+    const { lessonList } = this.state;
+
+    if (length === lessonList.length) {
+      return;
+    }
+
+    for (let i = 0; i < length; i++) {
+      this.setState(prevState => ({
+        lessonList: [...prevState.lessonList, new newLesson()],
+      }));
+    }
   };
 
   loadLessons = () => {
@@ -129,6 +134,14 @@ class AverageScreen extends Component {
       });
       return;
     }
+
+    if (errors.length === 1) {
+      this.setState({
+        errors: [],
+      });
+      return;
+    }
+
     let newList = errors;
     newList.splice(index, 1);
     this.setState({
