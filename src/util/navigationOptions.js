@@ -5,8 +5,6 @@ const calculateTitle = params => {
 
     if (listName) {
       title = listName;
-    } else {
-      title = 'İsimsiz';
     }
   } else {
     title = 'Yeni Liste';

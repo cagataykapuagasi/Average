@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
@@ -11,6 +17,9 @@ export default class TermCard extends Component {
   goAverages = () => {
     const { data, colors } = this.props;
 
+    this.setState({
+      isWarningDialog: false,
+    });
     Actions.average({ data, colors });
   };
 
@@ -20,14 +29,18 @@ export default class TermCard extends Component {
     });
   };
 
+  hideWarning = () => {
+    this.setState({
+      isWarningDialog: false,
+    });
+  };
+
   render() {
     const { data, colors } = this.props;
     const { isWarningDialog } = this.state;
     const average = data.item.average
       ? parseFloat(Math.round(data.item.average * 100) / 100).toFixed(2)
       : '0.00';
-    const listName =
-      data.item.listName.length > 0 ? data.item.listName : 'İsimsiz';
     const color = average >= 2.0 ? '#198A52' : 'red';
     const styles = _styles(colors);
 
@@ -40,7 +53,7 @@ export default class TermCard extends Component {
           style={styles.view}>
           <View style={styles.firstView}>
             <View style={styles.firstView_1}>
-              <Text style={styles.text}>{listName}</Text>
+              <Text style={styles.text}>{data.item.listName}</Text>
             </View>
 
             <View style={styles.firstView_2}>
@@ -66,11 +79,13 @@ export default class TermCard extends Component {
                 </TouchableOpacity>
               )}
               {isWarningDialog && (
-                <View style={styles.warningView}>
-                  <Text style={styles.warningText}>
-                    Kredisi girilmemiş ders mevcut!
-                  </Text>
-                </View>
+                <TouchableWithoutFeedback onPress={this.hideWarning}>
+                  <View style={styles.warningView}>
+                    <Text style={styles.warningText}>
+                      Kredisi girilmemiş ders mevcut!
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
               )}
             </View>
 

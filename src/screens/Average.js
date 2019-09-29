@@ -33,7 +33,11 @@ class AverageScreen extends Component {
     const { store, data } = this.props;
     const { listName, lessonList, errors } = this.state;
     const index = data ? data.index : null;
-    const newData = { listName, lessonList, index };
+    const newData = {
+      listName: listName ? listName : 'İsimsiz',
+      lessonList,
+      index,
+    };
 
     const filteredErrors = errors.filter(item => item !== null);
 
