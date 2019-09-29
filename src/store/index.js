@@ -18,7 +18,7 @@ export const store = new rootStore();
 const trunk = new AsyncTrunk(store, {
   storage: AsyncStorage,
   storageKey: '__Stalksta_Store__',
-  delay: 1e3,
+  delay: 1e1,
 });
 
 trunk.init().then(() => {

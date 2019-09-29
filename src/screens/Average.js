@@ -74,19 +74,15 @@ class AverageScreen extends Component {
     } = this.props;
 
     this.setState({
-      listName: listName,
+      listName,
       selectedNumber: lessonList.length,
-    });
-    lessonList.map(item => {
-      this.setState(prevState => ({
-        lessonList: [...prevState.lessonList, item],
-      }));
+      lessonList,
     });
   };
 
-  onChangeName = value => {
+  onChangeName = listName => {
     this.setState({
-      listName: value,
+      listName,
     });
   };
 
@@ -100,10 +96,17 @@ class AverageScreen extends Component {
   };
 
   onChangeLesson = (value, type, index) => {
-    this.setState(prevState => {
-      const newList = [...prevState.lessonList];
-      newList[index][type] = value;
-      return { lessonList: newList };
+    // this.setState(prevState => {
+    //   const newList = [...prevState.lessonList];
+    //   newList[index][type] = value;
+    //   return { lessonList: newList };
+    // });
+
+    let lessonList = this.state.lessonList;
+    lessonList[index][type] = value;
+
+    this.setState({
+      lessonList,
     });
 
     // this.setState(prevState => ({
@@ -201,11 +204,9 @@ class AverageScreen extends Component {
           previewRowKey={showTips ? 'key0' : null}
         />
 
-        {!data && (
-          <View style={styles.buttons}>
-            <Button onPress={this.finishEdit} text="Kaydet" colors={colors} />
-          </View>
-        )}
+        <View style={styles.buttons}>
+          <Button onPress={this.finishEdit} text="Kaydet" colors={colors} />
+        </View>
       </View>
     );
   }

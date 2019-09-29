@@ -30,5 +30,6 @@ const _styles = colors =>
   StyleSheet.create({
     text: {
       color: colors.text,
+      textAlign: 'center', //for android
     },
   });
