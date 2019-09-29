@@ -15,4 +15,4 @@ const calculateTitle = params => {
   return title;
 };
 
-export { calculateTitle };
+export default calculateTitle;

@@ -3,8 +3,7 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { LessonHidden, Lesson, SlidingDropDown, Button } from '../components';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { newLesson } from '../schema/lesson';
-import { calculateTitle } from '~/util/navigationOptions';
+import { calculateTitle, createLessons, handleErrorText } from '~/util';
 
 @inject('store')
 @observer
@@ -39,30 +38,18 @@ class AverageScreen extends Component {
     const filteredErrors = errors.filter(item => item !== null);
 
     if (filteredErrors.length > 0) {
-      let errorText = '';
-      filteredErrors.forEach(error => {
-        errorText += error.index + 1 + ' ';
-      }); //demo
-      alert(
-        errorText + 'sıralı derslerin kredilerinde sadece rakam kullanınız.'
-      );
+      alert(handleErrorText(errors));
       return;
     }
     store.average.addNewList(newData);
   };
 
   createLessons = length => {
-    const { lessonList } = this.state;
+    const lessonList = createLessons(length, this.state.lessonList);
 
-    if (length === lessonList.length) {
-      return;
-    }
-
-    for (let i = 0; i < length; i++) {
-      this.setState(prevState => ({
-        lessonList: [...prevState.lessonList, new newLesson()],
-      }));
-    }
+    this.setState({
+      lessonList,
+    });
   };
 
   loadLessons = () => {
@@ -92,34 +79,23 @@ class AverageScreen extends Component {
   };
 
   changeLessonNumber = selectedNumber => {
-    this.setState(
-      {
-        selectedNumber,
-      },
-      () => this.createLessons(selectedNumber)
-    );
+    if (selectedNumber === this.state.lessonList.length) {
+      return;
+    }
+
+    this.setState({
+      selectedNumber,
+    });
+    this.createLessons(selectedNumber);
   };
 
   onChangeLesson = (value, type, index) => {
-    // this.setState(prevState => {
-    //   const newList = [...prevState.lessonList];
-    //   newList[index][type] = value;
-    //   return { lessonList: newList };
-    // });
-
     let lessonList = this.state.lessonList;
     lessonList[index][type] = value;
 
     this.setState({
       lessonList,
     });
-
-    // this.setState(prevState => ({
-    // 	['lessonList'[index]]: { //error
-    // 		...prevState.lessonList[index],
-    // 		['lessonList'[index][type]]: value,
-    // 	}
-    // }));
   };
 
   catchError = (error, index) => {
