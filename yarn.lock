@@ -5588,21 +5588,21 @@ react-native-material-textfield@^0.12.0:
   dependencies:
     prop-types "^15.5.9"
 
-react-native-popup-dialog@^0.18.3:
-  version "0.18.3"
-  resolved "https://registry.yarnpkg.com/react-native-popup-dialog/-/react-native-popup-dialog-0.18.3.tgz#5d7a13fd7d9f817cf2121965a3b100a257201b67"
-  integrity sha512-ZvqixSEfMlcX2sm9rSRk/KkgWXwvnj7xqq4fIpSGlYGX48FfL8b3Xf2/uT9SvK2H7MX79b7sic53zzwJ+aBh3g==
+react-native-modals@^0.19.8:
+  version "0.19.8"
+  resolved "https://registry.yarnpkg.com/react-native-modals/-/react-native-modals-0.19.8.tgz#33ec111d64bf34ad46ecf88caca54957a940ee78"
+  integrity sha512-MssKIO6Br444trExOqmCrLru4hgzp58e7Lu4d8ClWiSGwbciAHkcj97eMUGF8IwBTuSrF40UKkFuSL7rj/EAyA==
   dependencies:
     babel-plugin-flow-react-proptypes "^9.1.1"
     prop-types "^15.6.0"
-    react-native-root-siblings "^3.2.1"
+    react-native-root-siblings "^3.2.2"
 
 react-native-rate@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.1.7.tgz#68e613afef5c29e71305ef0d2fd47befdd87e064"
   integrity sha512-wsutrWcjV0Zl7zqjyHUl6G/6MyksJS3zOhJ3dxw7mnQPDT7/jxeb3G2IsltITy7XE1b5C6fuOLwngfzIzZMF6w==
 
-react-native-root-siblings@^3.2.1:
+react-native-root-siblings@^3.2.2:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-3.2.3.tgz#df5a1cff3a3a1f433f57320e1cae719f1b15a3f2"
   integrity sha512-wOCCtKJteaSIW3K++hzhkfdWRikTqjrG34DnhNDVSzKatuNQyFY1fPBD1YFT/3+kxOIUmNsJdiaPMao9QgoZMA==

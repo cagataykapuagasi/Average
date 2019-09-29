@@ -5,14 +5,24 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 
 export default class TermCard extends Component {
+  state = {
+    isWarningDialog: false,
+  };
   goAverages = () => {
     const { data, colors } = this.props;
 
     Actions.average({ data, colors });
   };
 
+  showWarning = () => {
+    this.setState({
+      isWarningDialog: !this.state.isWarningDialog,
+    });
+  };
+
   render() {
     const { data, colors } = this.props;
+    const { isWarningDialog } = this.state;
     const average = data.item.average
       ? parseFloat(Math.round(data.item.average * 100) / 100).toFixed(2)
       : '0.00';
@@ -46,12 +56,21 @@ export default class TermCard extends Component {
             <View style={styles.secondView_1}>
               <Text style={[styles.averageText, { color }]}>{average}</Text>
               {color === 'red' && (
-                <Icon
-                  name="error-outline"
-                  style={styles.errorIcon}
-                  size={20}
-                  color={colors.error}
-                />
+                <TouchableOpacity onPress={this.showWarning}>
+                  <Icon
+                    name="error-outline"
+                    style={styles.errorIcon}
+                    size={20}
+                    color={colors.error}
+                  />
+                </TouchableOpacity>
+              )}
+              {isWarningDialog && (
+                <View style={styles.warningView}>
+                  <Text style={styles.warningText}>
+                    Kredisi girilmemiş ders mevcut!
+                  </Text>
+                </View>
               )}
             </View>
 
@@ -123,9 +142,22 @@ const _styles = colors =>
     },
     averageText: {
       fontWeight: 'bold',
-      fontWeight: 'normal',
     },
     errorIcon: {
       left: 5,
+    },
+    warningView: {
+      backgroundColor: 'orange',
+      position: 'absolute',
+      bottom: '50%',
+      left: '30%',
+      borderRadius: 17.5,
+      borderBottomLeftRadius: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 10,
+    },
+    warningText: {
+      color: '#fff',
     },
   });
