@@ -13,7 +13,6 @@ export default class Item extends Component {
     const borderColor =
       selectedNumber === index ? colors.dropdown : colors.text;
     const color = selectedNumber === index ? colors.dropdown : colors.text;
-    const styles = _styles(colors);
 
     return (
       <TouchableOpacity
@@ -25,16 +24,12 @@ export default class Item extends Component {
   }
 }
 
-const _styles = colors =>
-  StyleSheet.create({
-    item: {
-      height: 30,
-      width: 30,
-      borderRadius: 15,
-      borderWidth: 1,
-      borderColor: colors.text,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginRight: 5,
-    },
-  });
+const styles = StyleSheet.create({
+  item: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5,
+  },
+});
