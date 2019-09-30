@@ -78,7 +78,7 @@ class SlidingDropDown extends Component {
 
   render() {
     const { opacity, spring } = this.state;
-    const { selectedNumber, colors } = this.props;
+    const { selectedNumber, colors, showTips } = this.props;
     const styles = _styles(colors);
 
     return (
@@ -88,7 +88,7 @@ class SlidingDropDown extends Component {
           <TouchableOpacity onPress={this.toggleDropDown}>
             <Icon name="arrow-drop-down" size={35} color={colors.text} />
           </TouchableOpacity>
-          {selectedNumber === 0 && (
+          {selectedNumber === 0 && showTips && (
             <Text style={styles.infoText}>{'<- Seç'}</Text>
           )}
         </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default class Item extends Component {
   onPress = () => {
@@ -19,6 +19,7 @@ export default class Item extends Component {
         onPress={this.onPress}
         style={[styles.item, { borderColor }]}>
         <Text style={{ color }}>{item.value}</Text>
+        <View style={[styles.bottomView, { backgroundColor: borderColor }]} />
       </TouchableOpacity>
     );
   }
@@ -31,5 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
+  },
+  bottomView: {
+    width: '50%',
+    height: 3,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    top: 5,
   },
 });
