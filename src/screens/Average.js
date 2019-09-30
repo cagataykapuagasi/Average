@@ -195,6 +195,7 @@ class AverageScreen extends Component {
           previewDuration={500}
           previewOpenValue={-55}
           previewRowKey={showTips ? 'key0' : null}
+          style={styles.swipeList}
         />
 
         <View style={styles.buttons}>
@@ -218,6 +219,7 @@ const _styles = colors =>
       justifyContent: 'space-between',
       paddingHorizontal: 20,
       paddingBottom: 10,
+      backgroundColor: colors.background,
     },
     textInput: {
       color: colors.text,
@@ -238,5 +240,11 @@ const _styles = colors =>
       alignItems: 'center',
       justifyContent: 'space-around',
       paddingVertical: 10,
+      backgroundColor: colors.background,
+    },
+    swipeList: {
+      flex: 1,
+      backgroundColor: colors.background,
+      zIndex: -1,
     },
   });
