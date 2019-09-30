@@ -21,7 +21,6 @@ export default class App extends Component {
           <Router
             colors={store.app.colors}
             tabBarStyle={styles.tab}
-            backButtonTextStyle={styles.backButtonStyle}
             sceneStyle={styles.sceneStyle}
             titleStyle={styles.titleStyle}
             navigationBarStyle={styles.navigationBarStyle}
@@ -36,7 +35,11 @@ export default class App extends Component {
                 icon={TabIcon}
                 key="root">
                 <Scene initial component={Main} hideNavBar key="main" />
-                <Scene key="average" component={Average} />
+                <Scene
+                  key="average"
+                  headerTintColor="#0088CC"
+                  component={Average}
+                />
               </Stack>
 
               <Stack
@@ -65,25 +68,6 @@ export default class App extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   tab: {
-//     backgroundColor: '#2d2d2d',
-//   },
-//   navigationBarStyle: {
-//     backgroundColor: colors.background,
-//     borderBottomWidth: 0,
-//   },
-//   titleStyle: {
-//     color: 'white',
-//   },
-//   sceneStyle: {
-//     backgroundColor: colors.background,
-//   },
-//   backButtonStyle: {
-//     color: colors.text,
-//   },
-// });
-
 const _styles = colors =>
   StyleSheet.create({
     tab: {
@@ -92,15 +76,11 @@ const _styles = colors =>
     navigationBarStyle: {
       backgroundColor: colors.background,
       borderBottomWidth: 0,
-      tintColor: 'red',
     },
     titleStyle: {
       color: colors.navigationTitle,
     },
     sceneStyle: {
       backgroundColor: colors.background,
-    },
-    backButtonStyle: {
-      color: colors.text,
     },
   });

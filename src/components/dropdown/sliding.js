@@ -101,6 +101,7 @@ class SlidingDropDown extends Component {
             style={styles.flatlist}
             extraData={this.props.selectedNumber}
             keyExtractor={(item, index) => 'key' + index}
+            showsHorizontalScrollIndicator={false}
           />
         </Animated.View>
       </>

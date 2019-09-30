@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Switch, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { observer, inject } from 'mobx-react';
 import Rate, { AndroidMarket } from 'react-native-rate';
@@ -41,6 +48,10 @@ class SettingsScreen extends Component {
     Rate.rate(options);
   };
 
+  openSupport = () => {
+    Linking.openURL('mailto:cagatay.kapuagasi@gmail.com');
+  };
+
   render() {
     const { colors } = this.props;
     const styles = _styles(colors);
@@ -50,9 +61,16 @@ class SettingsScreen extends Component {
     return (
       <View style={styles.main}>
         <View style={styles.part}>
-          <TouchableOpacity onPress={this.rateApp} style={styles.menu}>
-            <Text style={styles.menuText}>Bizi değerlendirin</Text>
+          <TouchableOpacity onPress={this.rateApp} style={styles.button}>
+            <Text style={styles.buttonText}>Bizi değerlendirin</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={this.openSupport} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Sorun, şikayet yada istek bildirin
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.part}>
           <SwitchMenu
             menuText="İpuçlarını göster"
             value={showTips}
@@ -63,7 +81,6 @@ class SettingsScreen extends Component {
             value={darkMode}
             onValueChange={this.changeTheme}
           />
-          <SwitchMenu menuText="Bildirimler" />
         </View>
       </View>
     );
@@ -72,33 +89,6 @@ class SettingsScreen extends Component {
 
 export default SettingsScreen;
 
-// const styles = StyleSheet.create({
-//   main: {
-//     flex: 1,
-//     paddingHorizontal: 20,
-//     //backgroundColor: colorss.colors.secondary,
-//   },
-//   header: {
-//     flex: 1,
-//   },
-//   part: {
-//     flex: 2,
-//     justifyContent: 'center',
-//   },
-//   menu: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     borderBottomWidth: 1,
-//     borderBottomColor: colors.secondary,
-//     padding: 8,
-//   },
-//   menuText: {
-//     color: 'white',
-//     fontSize: 16,
-//   },
-// });
-
 const _styles = colors =>
   StyleSheet.create({
     main: {
@@ -106,7 +96,6 @@ const _styles = colors =>
       paddingHorizontal: 20,
     },
     part: {
-      flex: 1,
       paddingTop: 50,
     },
     menu: {
@@ -120,5 +109,15 @@ const _styles = colors =>
     menuText: {
       color: colors.text,
       fontSize: 16,
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
+    button: {
+      justifyContent: 'center',
+      backgroundColor: colors.secondary,
+      padding: 15,
+      marginVertical: 10,
     },
   });
