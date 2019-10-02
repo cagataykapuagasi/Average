@@ -42,7 +42,7 @@ class AverageScreen extends Component {
     const filteredErrors = errors.filter(item => item !== null);
 
     if (filteredErrors.length > 0) {
-      alert(handleErrorText(errors));
+      alert(handleErrorText(filteredErrors));
       return;
     }
     store.average.addNewList(newData);

@@ -1,13 +1,16 @@
 const handleErrorText = errors => {
-  const filteredErrors = errors.filter(item => item !== null);
   let errorText = '';
-  const { length } = filteredErrors;
+  const { length } = errors;
 
   if (length === 1) {
-    return length + ' numaralı dersin kredisinde sadece rakam kullanınız.';
+    return (
+      errors[0].index +
+      1 +
+      ' numaralı dersin kredisinde sadece rakam kullanınız.'
+    );
   }
 
-  filteredErrors.forEach(error => {
+  errors.forEach(error => {
     errorText += error.index + 1 + ' ';
   });
 
