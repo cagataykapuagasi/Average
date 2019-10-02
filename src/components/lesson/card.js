@@ -3,8 +3,9 @@ import { StyleSheet, View, TextInput } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
-import { Dropdown } from 'react-native-material-dropdown';
-import { letterGrade } from '../../util/grades';
+//import { Dropdown } from 'react-native-material-dropdown';
+import { letterGrade } from '~/util/grades';
+import Dropdown from './dropdown';
 
 export default class Lesson extends Component {
   componentDidMount() {
@@ -85,6 +86,7 @@ export default class Lesson extends Component {
                 placeholderTextColor="white"
                 onBlur={this.onBlurCredit}
                 style={[styles.text, { color: creditColor }]}
+                maxLength={2}
               />
               {showError && (
                 <Icon
@@ -100,13 +102,8 @@ export default class Lesson extends Component {
               <Dropdown
                 value={grade}
                 data={letterGrade}
-                dropdownPosition={-5}
-                textColor="white"
-                itemColor="#c3c3c3"
-                pickerStyle={styles.pickerStyle}
-                baseColor="white"
-                containerStyle={styles.dropdown}
                 onChangeText={value => this.onChangeText(value, 'grade')}
+                colors={colors}
               />
             </View>
           </View>
@@ -159,17 +156,13 @@ const _styles = colors =>
       alignItems: 'center',
     },
     secondBlock_1: {
-      flex: 2,
+      flex: 1,
       alignItems: 'center',
       left: 10,
       flexDirection: 'row',
       justifyContent: 'flex-start',
     },
-    secondBlock_2: {
-      flex: 1,
-      alignItems: 'flex-end',
-      right: 5,
-    },
+    secondBlock_2: {},
     dropdown: {
       height: 40,
       width: 50,
